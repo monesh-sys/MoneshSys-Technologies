@@ -1,61 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Member Verification | MoneshSys</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{
-      font-family:Arial;
-      background:#f4f6f8;
-      padding:50px;
-      text-align:center;
-    }
-    .box{
-      background:white;
-      max-width:500px;
-      margin:auto;
-      padding:30px;
-      border-radius:8px;
-    }
-    input{
-      width:80%;
-      padding:10px;
-      margin:10px 0;
-    }
-    button{
-      padding:10px 20px;
-      background:#0a66c2;
-      color:white;
-      border:none;
-      cursor:pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Member Verification | MoneshSys Technologies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  font-family:Arial;
+  background:#f2f4f7;
+  padding:40px;
+}
+.box{
+  background:#fff;
+  max-width:500px;
+  margin:auto;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+button{
+  padding:10px;
+  width:100%;
+  background:#0a66c2;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+.result{
+  margin-top:15px;
+  padding:15px;
+  border-radius:6px;
+}
+.valid{ background:#e6fffa; }
+.invalid{ background:#ffe6e6; }
+</style>
 </head>
+
 <body>
 
 <div class="box">
-  <h2>Member Verification</h2>
-  <p>Enter your MoneshSys Member ID</p>
+<h2>🔍 Member Verification</h2>
+<p>Enter your MoneshSys Member ID</p>
 
-  <input type="text" id="mid" placeholder="MST-DEV-001">
-  <br>
-  <button onclick="verify()">Verify</button>
+<input type="text" id="memberId" placeholder="MST-DEV-001">
+<button onclick="verifyMember()">Verify</button>
 
-  <p id="result"></p>
+<div id="output"></div>
 </div>
 
 <script>
-function verify(){
-  const id = document.getElementById("mid").value.toUpperCase();
-  const validPattern = /^MST-(DEV|DES|TES|LEA)-\d{3}$/;
+// 🔐 MEMBER DATABASE (YOU CONTROL THIS)
+const members = [
+  {
+    id: "MST-DEV-001",
+    name: "Rahul Kumar",
+    role: "Developer",
+    status: "Approved"
+  },
+  {
+    id: "MST-DES-002",
+    name: "Ananya Singh",
+    role: "Designer",
+    status: "Approved"
+  },
+  {
+    id: "MST-TES-003",
+    name: "Vikram Patel",
+    role: "Tester",
+    status: "Approved"
+  }
+];
 
-  if(validPattern.test(id)){
-    document.getElementById("result").innerHTML =
-    "✅ Valid MoneshSys Member ID";
+function verifyMember(){
+  const inputId = document.getElementById("memberId").value.toUpperCase();
+  const output = document.getElementById("output");
+
+  const member = members.find(m => m.id === inputId);
+
+  if(member){
+    output.innerHTML = `
+      <div class="result valid">
+        <strong>✅ Member Verified</strong><br><br>
+        <b>Name:</b> ${member.name}<br>
+        <b>Role:</b> ${member.role}<br>
+        <b>Status:</b> ${member.status}<br>
+        <b>Company:</b> MoneshSys Technologies
+      </div>
+    `;
   } else {
-    document.getElementById("result").innerHTML =
-    "❌ Invalid Member ID";
+    output.innerHTML = `
+      <div class="result invalid">
+        ❌ Invalid Member ID<br>
+        Please check your ID or contact admin.
+      </div>
+    `;
   }
 }
 </script>
