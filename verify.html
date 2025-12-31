@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Member Verification | MoneshSys</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f6f8;
+      padding:50px;
+      text-align:center;
+    }
+    .box{
+      background:white;
+      max-width:500px;
+      margin:auto;
+      padding:30px;
+      border-radius:8px;
+    }
+    input{
+      width:80%;
+      padding:10px;
+      margin:10px 0;
+    }
+    button{
+      padding:10px 20px;
+      background:#0a66c2;
+      color:white;
+      border:none;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Member Verification</h2>
+  <p>Enter your MoneshSys Member ID</p>
+
+  <input type="text" id="mid" placeholder="MST-DEV-001">
+  <br>
+  <button onclick="verify()">Verify</button>
+
+  <p id="result"></p>
+</div>
+
+<script>
+function verify(){
+  const id = document.getElementById("mid").value.toUpperCase();
+  const validPattern = /^MST-(DEV|DES|TES|LEA)-\d{3}$/;
+
+  if(validPattern.test(id)){
+    document.getElementById("result").innerHTML =
+    "✅ Valid MoneshSys Member ID";
+  } else {
+    document.getElementById("result").innerHTML =
+    "❌ Invalid Member ID";
+  }
+}
+</script>
+
+</body>
+</html>
