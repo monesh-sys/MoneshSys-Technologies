@@ -2,28 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MoneshSys ID Scanner</title>
+
+  <!-- QR Library -->
   <script src="https://unpkg.com/html5-qrcode"></script>
+
   <style>
     body {
       background: #0b0f1a;
       color: #00e5ff;
       font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 10px;
     }
+
+    h2 {
+      margin-top: 10px;
+    }
+
     #reader {
-      width: 300px;
+      width: 100%;
+      max-width: 320px;
       margin: auto;
     }
+
     .card {
-      margin-top: 20px;
+      margin: 20px auto;
       padding: 15px;
       border: 1px solid #00e5ff;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #111827;
+      max-width: 360px;
+    }
+
+    .error {
+      color: #ff4d4d;
+    }
+
+    .success {
+      color: #00ff9c;
     }
   </style>
 </head>
+
 <body>
 
   <h2>🔐 MoneshSys ID Verification</h2>
@@ -31,22 +54,27 @@
   <div id="reader"></div>
 
   <div class="card" id="result">
-    <p>Scan an ID QR Code</p>
+    <p>📷 Scan an ID QR Code</p>
   </div>
 
   <script>
+    let scanned = false;
+
     function onScanSuccess(decodedText) {
+      if (scanned) return; // stop multiple scans
+      scanned = true;
+
       try {
         const data = JSON.parse(decodedText);
 
         if (data.company !== "MoneshSys Technologies") {
           document.getElementById("result").innerHTML =
-            "<p style='color:red'>❌ Invalid Company ID</p>";
+            "<p class='error'>❌ Invalid Company ID</p>";
           return;
         }
 
         document.getElementById("result").innerHTML = `
-          <h3>✅ Verified</h3>
+          <h3 class="success">✅ Verified</h3>
           <p><b>Name:</b> ${data.name}</p>
           <p><b>Role:</b> ${data.role}</p>
           <p><b>ID:</b> ${data.id}</p>
@@ -54,14 +82,22 @@
         `;
       } catch (e) {
         document.getElementById("result").innerHTML =
-          "<p style='color:red'>Invalid QR Format</p>";
+          "<p class='error'>❌ Invalid QR Format</p>";
       }
     }
 
-    new Html5QrcodeScanner(
+    const scanner = new Html5QrcodeScanner(
       "reader",
-      { fps: 10, qrbox: 250 }
-    ).render(onScanSuccess);
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+      },
+      false
+    );
+
+    scanner.render(onScanSuccess);
   </script>
 
 </body>
