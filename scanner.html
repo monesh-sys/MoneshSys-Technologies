@@ -1,102 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MoneshSys QR Scanner</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>MoneshSys Secure QR Scanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- QR scanner library -->
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
-
-  <!-- Firebase scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-    #reader { width: 300px; margin: auto; }
-    #result { margin-top: 20px; font-size: 20px; font-weight: bold; }
-    .valid { color: green; }
-    .invalid { color: red; }
-    .blocked { color: orange; }
-  </style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  h1 {
+    color: #38bdf8;
+  }
+  #reader {
+    width: 300px;
+    margin: auto;
+  }
+  #result {
+    margin-top: 15px;
+    padding: 10px;
+    background: #020617;
+    border-radius: 8px;
+    word-break: break-word;
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>MoneshSys QR Scanner</h1>
-  <div id="reader"></div>
-  <div id="result">Scan a QR code...</div>
+<h1>MoneshSys QR Scanner</h1>
+<p>Scan only official MoneshSys QR codes</p>
 
-  <script>
-    // 🔹 Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",           // replace with your API key
-      authDomain: "moneshsys-qr.firebaseapp.com",
-      projectId: "moneshsys-qr",
-    };
+<div id="reader"></div>
+<div id="result">Waiting for scan...</div>
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+  const resultBox = document.getElementById("result");
 
-    // 🔹 Function to check token in Firebase
-    function checkToken(token) {
-      db.collection("tokens").doc(token).get()
-        .then((doc) => {
-          const resultDiv = document.getElementById("result");
-          if (!doc.exists) {
-            resultDiv.textContent = "❌ INVALID QR";
-            resultDiv.className = "invalid";
-            return;
-          }
-          const data = doc.data();
-          if (data.status === "active") {
-            resultDiv.textContent = "✅ VALID QR";
-            resultDiv.className = "valid";
-          } else {
-            resultDiv.textContent = "⚠️ BLOCKED / EXPIRED";
-            resultDiv.className = "blocked";
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          document.getElementById("result").textContent = "Error checking QR";
-        });
+  function onScanSuccess(qrText) {
+    // Check company QR
+    if (!qrText.includes("moneshsys.com/scan")) {
+      resultBox.innerHTML = "❌ Invalid QR<br>Use MoneshSys QR only";
+      return;
     }
 
-    // 🔹 Wait until DOM loads before starting scanner
-    document.addEventListener("DOMContentLoaded", function() {
-      const html5QrcodeScanner = new Html5Qrcode("reader");
+    resultBox.innerHTML = "⏳ Verifying...";
 
-      function startScanner() {
-        html5QrcodeScanner.start(
-          { facingMode: "environment" }, // use back camera
-          { fps: 10, qrbox: 250 },
-          (decodedText, decodedResult) => {
-            // QR detected
-            document.getElementById("result").textContent = "Checking token...";
-            checkToken(decodedText);
-
-            // Pause scanner for 3 seconds before next scan
-            html5QrcodeScanner.stop().then(() => {
-              setTimeout(() => {
-                document.getElementById("result").textContent = "Scan a QR code...";
-                startScanner(); // restart scanner
-              }, 3000);
-            });
-          },
-          (errorMessage) => {
-            // optional per-frame errors
-          }
-        ).catch(err => {
-          console.error(err);
-          document.getElementById("result").textContent = "Camera not accessible";
-        });
+    fetch(qrText, {
+      method: "GET",
+      headers: {
+        "X-MoneshSys-Scanner": "true"
       }
-
-      startScanner();
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("Unauthorized or invalid QR");
+      return res.json();
+    })
+    .then(data => {
+      resultBox.innerHTML = `
+        ✅ <b>Valid QR</b><br><br>
+        <b>Type:</b> ${data.type}<br>
+        <b>ID:</b> ${data.id}<br>
+        <b>Status:</b> ${data.status}<br>
+        <b>Company:</b> ${data.company}
+      `;
+    })
+    .catch(() => {
+      resultBox.innerHTML = "❌ This QR is not authorized for this scanner";
     });
-  </script>
+  }
+
+  const html5QrCode = new Html5Qrcode("reader");
+  html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    onScanSuccess
+  );
+</script>
 
 </body>
 </html>
