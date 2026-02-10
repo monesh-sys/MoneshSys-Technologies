@@ -28,9 +28,9 @@
   <div id="result">Scan a QR code...</div>
 
   <script>
-    // 🔹 Firebase config (replace with yours)
+    // 🔹 Your Firebase config
     const firebaseConfig = {
-      apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",
+      apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",           // replace with your API key
       authDomain: "moneshsys-qr.firebaseapp.com",
       projectId: "moneshsys-qr",
     };
@@ -64,36 +64,38 @@
         });
     }
 
-    // 🔹 QR scanner setup
-    const html5QrcodeScanner = new Html5Qrcode("reader");
+    // 🔹 Wait until DOM loads before starting scanner
+    document.addEventListener("DOMContentLoaded", function() {
+      const html5QrcodeScanner = new Html5Qrcode("reader");
 
-    html5QrcodeScanner.start(
-      { facingMode: "environment" }, // use back camera
-      { fps: 10, qrbox: 250 },
-      (decodedText, decodedResult) => {
-        // QR detected
-        document.getElementById("result").textContent = "Checking token...";
-        checkToken(decodedText);
+      function startScanner() {
+        html5QrcodeScanner.start(
+          { facingMode: "environment" }, // use back camera
+          { fps: 10, qrbox: 250 },
+          (decodedText, decodedResult) => {
+            // QR detected
+            document.getElementById("result").textContent = "Checking token...";
+            checkToken(decodedText);
 
-        // Pause scanner for 3 seconds before next scan
-        html5QrcodeScanner.stop().then(() => {
-          setTimeout(() => {
-            document.getElementById("result").textContent = "Scan a QR code...";
-            html5QrcodeScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, (decodedText, decodedResult) => {
-              document.getElementById("result").textContent = "Checking token...";
-              checkToken(decodedText);
+            // Pause scanner for 3 seconds before next scan
+            html5QrcodeScanner.stop().then(() => {
+              setTimeout(() => {
+                document.getElementById("result").textContent = "Scan a QR code...";
+                startScanner(); // restart scanner
+              }, 3000);
             });
-          }, 3000);
+          },
+          (errorMessage) => {
+            // optional per-frame errors
+          }
+        ).catch(err => {
+          console.error(err);
+          document.getElementById("result").textContent = "Camera not accessible";
         });
-      },
-      (errorMessage) => {
-        // optional per-frame error handling
       }
-    ).catch(err => {
-      console.error(err);
-      document.getElementById("result").textContent = "Camera not accessible";
-    });
 
+      startScanner();
+    });
   </script>
 
 </body>
