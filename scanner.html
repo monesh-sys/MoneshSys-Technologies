@@ -1,87 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MoneshSys Secure QR Scanner</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>MoneshSys QR Scanner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  h1 {
-    color: #38bdf8;
-  }
-  #reader {
-    width: 300px;
-    margin: auto;
-  }
-  #result {
-    margin-top: 15px;
-    padding: 10px;
-    background: #020617;
-    border-radius: 8px;
-    word-break: break-word;
-  }
-</style>
+  <!-- QR scanner library -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+
+  <!-- Firebase scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    #reader { width: 300px; margin: auto; }
+    #result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+    .valid { color: green; }
+    .invalid { color: red; }
+    .blocked { color: orange; }
+  </style>
 </head>
-
 <body>
 
-<h1>MoneshSys QR Scanner</h1>
-<p>Scan only official MoneshSys QR codes</p>
+  <h1>MoneshSys QR Scanner</h1>
+  <div id="reader"></div>
+  <div id="result">Scan a QR code...</div>
 
-<div id="reader"></div>
-<div id="result">Waiting for scan...</div>
+  <script>
+    // 🔹 Paste your Firebase config here
+    const firebaseConfig = {
+  apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",
+  authDomain: "moneshsys-qr.firebaseapp.com",
+  projectId: "moneshsys-qr",
+  storageBucket: "moneshsys-qr.firebasestorage.app",
+  messagingSenderId: "758414187203",
+  appId: "1:758414187203:web:2ffe509f5f52f278656076"
+};
 
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
-  const resultBox = document.getElementById("result");
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-  function onScanSuccess(qrText) {
-    // Check company QR
-    if (!qrText.includes("moneshsys.com/scan")) {
-      resultBox.innerHTML = "❌ Invalid QR<br>Use MoneshSys QR only";
-      return;
+    // Function to check token in Firebase
+    function checkToken(token) {
+      db.collection("tokens").doc(token).get()
+        .then((doc) => {
+          const resultDiv = document.getElementById("result");
+          if (!doc.exists) {
+            resultDiv.textContent = "❌ INVALID QR";
+            resultDiv.className = "invalid";
+            return;
+          }
+
+          const data = doc.data();
+
+          if (data.status === "active") {
+            resultDiv.textContent = "✅ VALID QR";
+            resultDiv.className = "valid";
+          } else {
+            resultDiv.textContent = "⚠️ BLOCKED / EXPIRED";
+            resultDiv.className = "blocked";
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          document.getElementById("result").textContent = "Error checking QR";
+        });
     }
 
-    resultBox.innerHTML = "⏳ Verifying...";
+    // HTML5 QR code scanner setup
+    function onScanSuccess(decodedText, decodedResult) {
+      // Stop scanning temporarily
+      html5QrcodeScanner.clear();
+      // Check token in Firebase
+      checkToken(decodedText);
+      // Restart scanning after 3 seconds
+      setTimeout(() => {
+        document.getElementById("result").textContent = "Scan a QR code...";
+        html5QrcodeScanner.render(onScanSuccess);
+      }, 3000);
+    }
 
-    fetch(qrText, {
-      method: "GET",
-      headers: {
-        "X-MoneshSys-Scanner": "true"
-      }
-    })
-    .then(res => {
-      if (!res.ok) throw new Error("Unauthorized or invalid QR");
-      return res.json();
-    })
-    .then(data => {
-      resultBox.innerHTML = `
-        ✅ <b>Valid QR</b><br><br>
-        <b>Type:</b> ${data.type}<br>
-        <b>ID:</b> ${data.id}<br>
-        <b>Status:</b> ${data.status}<br>
-        <b>Company:</b> ${data.company}
-      `;
-    })
-    .catch(() => {
-      resultBox.innerHTML = "❌ This QR is not authorized for this scanner";
+    const html5QrcodeScanner = new Html5Qrcode("reader");
+    html5QrcodeScanner.start(
+      { facingMode: "environment" }, // back camera
+      { fps: 10, qrbox: 250 },
+      onScanSuccess
+    ).catch(err => {
+      console.error(err);
+      document.getElementById("result").textContent = "Camera not accessible";
     });
-  }
 
-  const html5QrCode = new Html5Qrcode("reader");
-  html5QrCode.start(
-    { facingMode: "environment" },
-    { fps: 10, qrbox: 250 },
-    onScanSuccess
-  );
-</script>
+  </script>
 
 </body>
 </html>
