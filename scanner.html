@@ -1,87 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MoneshSys Secure QR Scanner</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  h1 {
-    color: #38bdf8;
-  }
-  #reader {
-    width: 300px;
-    margin: auto;
-  }
-  #result {
-    margin-top: 15px;
-    padding: 10px;
-    background: #020617;
-    border-radius: 8px;
-    word-break: break-word;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>MoneshSys ID Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      background: #0b0f1a;
+      color: #00e5ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #reader {
+      width: 300px;
+      margin: auto;
+    }
+    .card {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #00e5ff;
+      border-radius: 10px;
+      background: #111827;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>MoneshSys QR Scanner</h1>
-<p>Scan only official MoneshSys QR codes</p>
+  <h2>🔐 MoneshSys ID Verification</h2>
 
-<div id="reader"></div>
-<div id="result">Waiting for scan...</div>
+  <div id="reader"></div>
 
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
-  const resultBox = document.getElementById("result");
+  <div class="card" id="result">
+    <p>Scan an ID QR Code</p>
+  </div>
 
-  function onScanSuccess(qrText) {
-    // Check company QR
-    if (!qrText.includes("moneshsys.com/scan")) {
-      resultBox.innerHTML = "❌ Invalid QR<br>Use MoneshSys QR only";
-      return;
+  <script>
+    function onScanSuccess(decodedText) {
+      try {
+        const data = JSON.parse(decodedText);
+
+        if (data.company !== "MoneshSys Technologies") {
+          document.getElementById("result").innerHTML =
+            "<p style='color:red'>❌ Invalid Company ID</p>";
+          return;
+        }
+
+        document.getElementById("result").innerHTML = `
+          <h3>✅ Verified</h3>
+          <p><b>Name:</b> ${data.name}</p>
+          <p><b>Role:</b> ${data.role}</p>
+          <p><b>ID:</b> ${data.id}</p>
+          <p><b>Status:</b> ${data.status}</p>
+        `;
+      } catch (e) {
+        document.getElementById("result").innerHTML =
+          "<p style='color:red'>Invalid QR Format</p>";
+      }
     }
 
-    resultBox.innerHTML = "⏳ Verifying...";
-
-    fetch(qrText, {
-      method: "GET",
-      headers: {
-        "X-MoneshSys-Scanner": "true"
-      }
-    })
-    .then(res => {
-      if (!res.ok) throw new Error("Unauthorized or invalid QR");
-      return res.json();
-    })
-    .then(data => {
-      resultBox.innerHTML = `
-        ✅ <b>Valid QR</b><br><br>
-        <b>Type:</b> ${data.type}<br>
-        <b>ID:</b> ${data.id}<br>
-        <b>Status:</b> ${data.status}<br>
-        <b>Company:</b> ${data.company}
-      `;
-    })
-    .catch(() => {
-      resultBox.innerHTML = "❌ This QR is not authorized for this scanner";
-    });
-  }
-
-  const html5QrCode = new Html5Qrcode("reader");
-  html5QrCode.start(
-    { facingMode: "environment" },
-    { fps: 10, qrbox: 250 },
-    onScanSuccess
-  );
-</script>
+    new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: 250 }
+    ).render(onScanSuccess);
+  </script>
 
 </body>
 </html>
