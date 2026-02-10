@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MoneshSys ID Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      background: #0b0f1a;
+      color: #00e5ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #reader {
+      width: 300px;
+      margin: auto;
+    }
+    .card {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #00e5ff;
+      border-radius: 10px;
+      background: #111827;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔐 MoneshSys ID Verification</h2>
+
+  <div id="reader"></div>
+
+  <div class="card" id="result">
+    <p>Scan an ID QR Code</p>
+  </div>
+
+  <script>
+    function onScanSuccess(decodedText) {
+      try {
+        const data = JSON.parse(decodedText);
+
+        if (data.company !== "MoneshSys Technologies") {
+          document.getElementById("result").innerHTML =
+            "<p style='color:red'>❌ Invalid Company ID</p>";
+          return;
+        }
+
+        document.getElementById("result").innerHTML = `
+          <h3>✅ Verified</h3>
+          <p><b>Name:</b> ${data.name}</p>
+          <p><b>Role:</b> ${data.role}</p>
+          <p><b>ID:</b> ${data.id}</p>
+          <p><b>Status:</b> ${data.status}</p>
+        `;
+      } catch (e) {
+        document.getElementById("result").innerHTML =
+          "<p style='color:red'>Invalid QR Format</p>";
+      }
+    }
+
+    new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: 250 }
+    ).render(onScanSuccess);
+  </script>
+
+</body>
+</html>
