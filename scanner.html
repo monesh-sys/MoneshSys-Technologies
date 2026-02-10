@@ -28,13 +28,14 @@
   <div id="result">Scan a QR code...</div>
 
   <script>
-    // 🔹 Your Firebase config
+    // 🔹 Firebase config (replace with yours)
     const firebaseConfig = {
       apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",
       authDomain: "moneshsys-qr.firebaseapp.com",
-      projectId: "moneshsys-qr"
+      projectId: "moneshsys-qr",
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -71,26 +72,28 @@
       { fps: 10, qrbox: 250 },
       (decodedText, decodedResult) => {
         // QR detected
-        checkToken(decodedText);  // check with Firebase
         document.getElementById("result").textContent = "Checking token...";
+        checkToken(decodedText);
+
         // Pause scanner for 3 seconds before next scan
         html5QrcodeScanner.stop().then(() => {
           setTimeout(() => {
             document.getElementById("result").textContent = "Scan a QR code...";
             html5QrcodeScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, (decodedText, decodedResult) => {
-              checkToken(decodedText);
               document.getElementById("result").textContent = "Checking token...";
+              checkToken(decodedText);
             });
           }, 3000);
         });
       },
       (errorMessage) => {
-        // optional error handling per frame
+        // optional per-frame error handling
       }
     ).catch(err => {
       console.error(err);
       document.getElementById("result").textContent = "Camera not accessible";
     });
+
   </script>
 
 </body>
