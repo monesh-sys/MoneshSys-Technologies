@@ -28,18 +28,17 @@
   <div id="result">Scan a QR code...</div>
 
   <script>
-    // 🔹 Paste your Firebase config here
+    // 🔹 Your Firebase config
     const firebaseConfig = {
-  apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",
-  authDomain: "moneshsys-qr.firebaseapp.com",
-  projectId: "moneshsys-qr",
-};
+      apiKey: "AIzaSyBzvSOtkZfq7YlWjrclD4lK_MlZJTw6H6I",
+      authDomain: "moneshsys-qr.firebaseapp.com",
+      projectId: "moneshsys-qr"
+    };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Function to check token in Firebase
+    // 🔹 Function to check token in Firebase
     function checkToken(token) {
       db.collection("tokens").doc(token).get()
         .then((doc) => {
@@ -49,9 +48,7 @@
             resultDiv.className = "invalid";
             return;
           }
-
           const data = doc.data();
-
           if (data.status === "active") {
             resultDiv.textContent = "✅ VALID QR";
             resultDiv.className = "valid";
@@ -66,29 +63,34 @@
         });
     }
 
-    // HTML5 QR code scanner setup
-    function onScanSuccess(decodedText, decodedResult) {
-      // Stop scanning temporarily
-      html5QrcodeScanner.clear();
-      // Check token in Firebase
-      checkToken(decodedText);
-      // Restart scanning after 3 seconds
-      setTimeout(() => {
-        document.getElementById("result").textContent = "Scan a QR code...";
-        html5QrcodeScanner.render(onScanSuccess);
-      }, 3000);
-    }
-
+    // 🔹 QR scanner setup
     const html5QrcodeScanner = new Html5Qrcode("reader");
+
     html5QrcodeScanner.start(
-      { facingMode: "environment" }, // back camera
+      { facingMode: "environment" }, // use back camera
       { fps: 10, qrbox: 250 },
-      onScanSuccess
+      (decodedText, decodedResult) => {
+        // QR detected
+        checkToken(decodedText);  // check with Firebase
+        document.getElementById("result").textContent = "Checking token...";
+        // Pause scanner for 3 seconds before next scan
+        html5QrcodeScanner.stop().then(() => {
+          setTimeout(() => {
+            document.getElementById("result").textContent = "Scan a QR code...";
+            html5QrcodeScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, (decodedText, decodedResult) => {
+              checkToken(decodedText);
+              document.getElementById("result").textContent = "Checking token...";
+            });
+          }, 3000);
+        });
+      },
+      (errorMessage) => {
+        // optional error handling per frame
+      }
     ).catch(err => {
       console.error(err);
       document.getElementById("result").textContent = "Camera not accessible";
     });
-
   </script>
 
 </body>
