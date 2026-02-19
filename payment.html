@@ -5,28 +5,23 @@
     <title>Payment - MoneshSys Technologies</title>
     <link rel="icon" href="logo.png" type="image/png">
     <style>
-        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; }
-        section { max-width:500px; margin:50px auto; padding:40px 20px; background:white; border-radius:8px; text-align:center; }
-        h2 { color:#0a66c2; }
-        button { padding:12px 25px; margin:10px 0; font-size:16px; border:none; border-radius:4px; cursor:pointer; color:white; background:#0a66c2; }
-        button:hover { background:#084e96; }
-        a { text-decoration:none; color:white; }
+        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; text-align:center; }
+        section { max-width:500px; margin:50px auto; padding:40px 20px; background:white; border-radius:8px; }
+        h2 { color:#0a66c2; margin-bottom:20px; }
+        img { width:250px; height:250px; margin:20px 0; }
+        p { font-size:16px; }
+        a { text-decoration:none; color:#0a66c2; font-weight:bold; }
     </style>
 </head>
 <body>
     <section>
         <h2>Complete Your Payment</h2>
-        <p>Pay ₹500 Membership Fee to Join MoneshSys Technologies</p>
+        <p>Scan the QR code below to pay ₹500 Membership Fee</p>
+        <!-- QR Code Image -->
+        <img src="your-qr-code.png" alt="Scan to Pay">
 
-        <!-- PayPal Payment -->
-        <button>
-            <a href="https://www.paypal.com/paypalme/YOUR_ACCOUNT" target="_blank">Pay via PayPal</a>
-        </button>
-
-        <!-- UPI Payment -->
-        <button>
-            <a href="upi://pay?pa=YOURUPIID@bank&pn=MoneshSys&am=500&cu=INR">Pay via UPI</a>
-        </button>
+        <p>After payment, please click below:</p>
+        <a href="thankyou.html">I Have Paid</a>
     </section>
 </body>
 </html>
