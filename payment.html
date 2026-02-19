@@ -1,38 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Payment Page</title>
-    <style>
-        body { font-family: Arial; text-align:center; padding:50px; background:#f4f6f8; }
-        .qr { margin: 20px 0; }
-        button { display:none; padding: 12px 20px; background:#0a66c2; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
-        button:hover { background:#084e96; }
-    </style>
+  <title>Payment - MoneshSys</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .amount {
+      font-size: 22px;
+      color: green;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    img {
+      width: 200px;
+      margin: 15px 0;
+    }
+
+    .paid-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .paid-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
+
 <body>
 
-    <h1>Complete Your Payment</h1>
-    <p>Scan this QR code to pay your joining fee:</p>
-    <div class="qr">
-        <img src="qr.png" alt="QR Code" width="200">
-    </div>
+  <div class="container">
+    <h2>Scan & Pay</h2>
 
-    <p>After completing payment, click the button below:</p>
-    <button id="paid-btn">I Have Paid</button>
+    <div class="amount">₹50 Joining Fee</div>
 
-    <script>
-        // Show the "I Have Paid" button only after user clicks on QR or confirms
-        // Simple demo: show button after 3 seconds (simulate payment completed)
-        setTimeout(() => {
-            document.getElementById('paid-btn').style.display = 'inline-block';
-        }, 3000); // You can adjust or trigger via your app logic
+    <!-- UPI QR Code -->
+    <img src="https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=upi://pay?pa=9600829582@fam&pn=MoneshSys&tn=Joining%20Fee&am=500&cu=INR">
 
-        // Redirect to thank you page after payment confirmation
-        document.getElementById('paid-btn').addEventListener('click', () => {
-            window.location.href = "thankyou.html";
-        });
-    </script>
+    <p>Scan this QR using any UPI app</p>
+
+    <button class="paid-btn" onclick="goThankYou()">I Have Paid</button>
+  </div>
+
+  <script>
+    function goThankYou() {
+      window.location.href = "thankyou.html";
+    }
+  </script>
 
 </body>
 </html>
