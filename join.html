@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+
 <section id="join">
     <h2>Join Our Team</h2>
     <p>We welcome students and developers who want to learn, collaborate, and grow together.</p>
@@ -42,17 +43,17 @@ document.getElementById('join-form').addEventListener('submit', function(e){
     const formData = new FormData(this);
     const data = new URLSearchParams(formData);
 
-    // ----------------------------
-    // Replace with your Apps Script Web App URL
-    // ----------------------------
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxlPmXLiWcf1xRkzTBhQGZzHGDgBGDGNH7KM3JXBWumzV4WpAzabSQxleYC5D3toqtt/exec";
+    // 🔹 Replace with your Google Apps Script Web App URL
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw2Ybv2S6K4ymGUv-z2VGXkoSZ3RC5TzM2i3KXr7mGjdk7fHxnAnb_44MCVSC-lY8TQ/exec";
 
-    fetch(GOOGLE_SHEET_URL, { method: "POST", body: data })
-    .then(response => response.text())
-    .then(text => {
-        console.log(text); // "Success" from Apps Script
-
-        // Save locally to display on Thank You page
+    // 🔹 Use no-cors mode to prevent fetch errors
+    fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        body: data,
+        mode: "no-cors"
+    })
+    .then(() => {
+        // Save user info locally for thank you page
         localStorage.setItem("memberName", this.name.value);
         localStorage.setItem("memberEmail", this.email.value);
         localStorage.setItem("memberMobile", this.mobile.value);
@@ -60,8 +61,12 @@ document.getElementById('join-form').addEventListener('submit', function(e){
         // Redirect to payment page
         window.location.href = "payment.html";
     })
-    .catch(err => alert("Error submitting form: " + err));
+    .catch(err => {
+        alert("Error submitting form. Please try again!");
+        console.error(err);
+    });
 });
 </script>
+
 </body>
 </html>
