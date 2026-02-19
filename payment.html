@@ -2,26 +2,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Payment - MoneshSys Technologies</title>
-    <link rel="icon" href="logo.png" type="image/png">
+    <title>Payment Page</title>
     <style>
-        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; text-align:center; }
-        section { max-width:500px; margin:50px auto; padding:40px 20px; background:white; border-radius:8px; }
-        h2 { color:#0a66c2; margin-bottom:20px; }
-        img { width:250px; height:250px; margin:20px 0; }
-        p { font-size:16px; }
-        a { text-decoration:none; color:#0a66c2; font-weight:bold; }
+        body { font-family: Arial; text-align:center; padding:50px; background:#f4f6f8; }
+        .qr { margin: 20px 0; }
+        button { display:none; padding: 12px 20px; background:#0a66c2; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
+        button:hover { background:#084e96; }
     </style>
 </head>
 <body>
-    <section>
-        <h2>Complete Your Payment</h2>
-        <p>Scan the QR code below to pay ₹500 Membership Fee</p>
-        <!-- QR Code Image -->
-        <img src="your-qr-code.png" alt="Scan to Pay">
 
-        <p>After payment, please click below:</p>
-        <a href="thankyou.html">I Have Paid</a>
-    </section>
+    <h1>Complete Your Payment</h1>
+    <p>Scan this QR code to pay your joining fee:</p>
+    <div class="qr">
+        <img src="qr.png" alt="QR Code" width="200">
+    </div>
+
+    <p>After completing payment, click the button below:</p>
+    <button id="paid-btn">I Have Paid</button>
+
+    <script>
+        // Show the "I Have Paid" button only after user clicks on QR or confirms
+        // Simple demo: show button after 3 seconds (simulate payment completed)
+        setTimeout(() => {
+            document.getElementById('paid-btn').style.display = 'inline-block';
+        }, 3000); // You can adjust or trigger via your app logic
+
+        // Redirect to thank you page after payment confirmation
+        document.getElementById('paid-btn').addEventListener('click', () => {
+            window.location.href = "thankyou.html";
+        });
+    </script>
+
 </body>
 </html>
