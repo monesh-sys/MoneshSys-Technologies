@@ -1,100 +1,67 @@
+<!DOCTYPE html>
+<html>
 <head>
+    <meta charset="UTF-8">
+    <title>Join MoneshSys Technologies</title>
     <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; }
+        section { max-width:800px; margin:30px auto; padding:40px 20px; background:white; border-radius:8px; }
+        h2 { color:#0a66c2; }
+        input, select, textarea, button { width:100%; padding:10px; margin:8px 0; border-radius:4px; border:1px solid #ccc; box-sizing:border-box; }
+        button { background-color:#0a66c2; color:white; border:none; cursor:pointer; }
+        button:hover { background-color:#084e96; }
+    </style>
 </head>
-<style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #333;
-    }
-
-    nav {
-      background: #0a66c2;
-      padding: 15px;
-      text-align: center;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 12px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    header {
-      background: linear-gradient(to right, #0a66c2, #084e96);
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
-    }
-
-    header h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    section {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 40px 20px;
-      background: white;
-      border-radius: 8px;
-    }
-
-    h2 {
-      color: #0a66c2;
-    }
-
-    ul li {
-      margin: 8px 0;
-    }
-
-    iframe {
-      width: 100%;
-      height: 1600px;
-      border: none;
-    }
-
-    footer {
-      background: #111;
-      color: #aaa;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    footer a {
-      color: #0a66c2;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-  </style>
-
 <body>
 <section id="join">
-  <h2>Join Our Team</h2>
-  <p>
-    We welcome students and developers who want to learn, collaborate,
-    and grow together.
-  </p>
+    <h2>Join Our Team</h2>
+    <p>We welcome students and developers who want to learn, collaborate, and grow together.</p>
 
-  <iframe
-    src="https://docs.google.com/forms/d/e/1FAIpQLScdaotX7QCQIS0GIMN79Zp3b0ZM3xrlq3HXAwxJSpZQNFo2rw/viewform?embedded=true">
-  </iframe>
+    <form id="join-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="mobile" placeholder="Mobile Number" required>
+        <select name="class" required>
+            <option value="">Select Your Class</option>
+            <option value="10th">10th</option>
+            <option value="11th">11th</option>
+            <option value="12th">12th</option>
+            <option value="College">College</option>
+        </select>
+        <textarea name="message" placeholder="Any Message (Optional)"></textarea>
 
-  <!-- Add Payment Button -->
-  <div style="margin-top:20px; text-align:center;">
-    <a href="payment.html">
-      <button style="padding:10px 20px; font-size:16px; cursor:pointer;">
-        Go to Payment
-      </button>
-    </a>
-  </div>
-
-  <a href="index.html" style="display:block; margin-top:20px;">← Back to Home</a>
+        <button type="submit">Submit Form & Go to Payment</button>
+    </form>
 </section>
+
+<script>
+document.getElementById('join-form').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = new URLSearchParams(formData);
+
+    // ----------------------------
+    // Replace with your Apps Script Web App URL
+    // ----------------------------
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw2Ybv2S6K4ymGUv-z2VGXkoSZ3RC5TzM2i3KXr7mGjdk7fHxnAnb_44MCVSC-lY8TQ/exec";
+
+    fetch(GOOGLE_SHEET_URL, { method: "POST", body: data })
+    .then(response => response.text())
+    .then(text => {
+        console.log(text); // "Success" from Apps Script
+
+        // Save locally to display on Thank You page
+        localStorage.setItem("memberName", this.name.value);
+        localStorage.setItem("memberEmail", this.email.value);
+        localStorage.setItem("memberMobile", this.mobile.value);
+
+        // Redirect to payment page
+        window.location.href = "payment.html";
+    })
+    .catch(err => alert("Error submitting form: " + err));
+});
+</script>
+</body>
+</html>
