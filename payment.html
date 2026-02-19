@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Payment Page</title>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <meta charset="UTF-8">
+    <title>Payment - MoneshSys Technologies</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; }
+        section { max-width:500px; margin:50px auto; padding:40px 20px; background:white; border-radius:8px; text-align:center; }
+        h2 { color:#0a66c2; }
+        button { padding:12px 25px; margin:10px 0; font-size:16px; border:none; border-radius:4px; cursor:pointer; color:white; background:#0a66c2; }
+        button:hover { background:#084e96; }
+        a { text-decoration:none; color:white; }
+    </style>
 </head>
 <body>
-    <h1>Complete Your Payment</h1>
-    <p>Pay ₹500 to join MoneshSys Technologies</p>
+    <section>
+        <h2>Complete Your Payment</h2>
+        <p>Pay ₹500 Membership Fee to Join MoneshSys Technologies</p>
 
-    <button id="pay-button">Pay Now</button>
+        <!-- PayPal Payment -->
+        <button>
+            <a href="https://www.paypal.com/paypalme/YOUR_ACCOUNT" target="_blank">Pay via PayPal</a>
+        </button>
 
-    <script>
-    document.getElementById('pay-button').onclick = function(e){
-        var options = {
-            "key": "YOUR_KEY_HERE", // Replace with your Razorpay Key ID
-            "amount": 50000, // ₹500 in paise
-            "currency": "INR",
-            "name": "MoneshSys Technologies",
-            "description": "Membership Fee",
-            "handler": function(response){
-                alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-                window.location.href = "success.html"; // optional success page
-            },
-            "theme": {"color": "#0a66c2"}
-        };
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-        e.preventDefault();
-    }
-    </script>
+        <!-- UPI Payment -->
+        <button>
+            <a href="upi://pay?pa=YOURUPIID@bank&pn=MoneshSys&am=500&cu=INR">Pay via UPI</a>
+        </button>
+    </section>
 </body>
 </html>
