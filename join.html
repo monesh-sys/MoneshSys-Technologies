@@ -1,72 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Join MoneshSys</title>
-    <link rel="icon" href="logo.png" type="image/png">
-    <style>
-        body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; color:#333; }
-        section { max-width:800px; margin:30px auto; padding:40px 20px; background:white; border-radius:8px; }
-        h2 { color:#0a66c2; }
-        input, select, textarea, button { width:100%; padding:10px; margin:8px 0; border-radius:4px; border:1px solid #ccc; box-sizing:border-box; }
-        button { background-color:#0a66c2; color:white; border:none; cursor:pointer; }
-        button:hover { background-color:#084e96; }
-    </style>
+  <title>Join MoneshSys</title>
 </head>
 <body>
 
-<section id="join">
-    <h2>Join Our Team</h2>
-    <p>We welcome students and developers who want to learn, collaborate, and grow together.</p>
+  <h2>Join Application</h2>
 
-    <form id="join-form">
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="text" name="mobile" placeholder="Mobile Number" required>
-        <select name="class" required>
-            <option value="">Select Your Class</option>
-            <option value="10th">10th</option>
-            <option value="11th">11th</option>
-            <option value="12th">12th</option>
-            <option value="College">College</option>
-        </select>
-        <textarea name="message" placeholder="Any Message (Optional)"></textarea>
+  <form id="joinForm">
+    <input type="text" id="name" placeholder="Enter Your Name" required><br><br>
+    <input type="email" id="email" placeholder="Enter Your Email" required><br><br>
 
-        <button type="submit">Submit Form & Go to Payment</button>
-    </form>
-</section>
+    <button type="submit">Submit & Pay ₹500</button>
+  </form>
 
-<script>
-document.getElementById('join-form').addEventListener('submit', function(e){
-    e.preventDefault();
+  <script>
+    document.getElementById("joinForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    const formData = new FormData(this);
-    const data = new URLSearchParams(formData);
-
-    // 🔹 Replace with your deployed Web App URL
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxhmyQ7xM74R7td6yId9YLKIMe50mVX2O-GVUpWJzWsW_JT5daV_sQ-qcZwnv29oDgJ/exec";
-
-    // Use no-cors to avoid fetch error in FAMAPP
-    fetch(GOOGLE_SHEET_URL, {
+      fetch("https://script.google.com/macros/s/AKfycbwOiev5RBySxJ1IjfN7_ZGZpJPeT4tMZhFUouhD7QU-ThkVgxPN1KhHbRbcWEHt76m1/exec", {
         method: "POST",
-        body: data,
-        mode: "no-cors"
-    })
-    .then(() => {
-        // Save user info to display on thankyou page
-        localStorage.setItem("memberName", this.name.value);
-        localStorage.setItem("memberEmail", this.email.value);
-        localStorage.setItem("memberMobile", this.mobile.value);
-
-        // Redirect to payment page
+        body: new URLSearchParams({
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          payment: "Pending"
+        })
+      })
+      .then(response => response.text())
+      .then(data => {
         window.location.href = "payment.html";
-    })
-    .catch(err => {
-        alert("Error submitting form. Please try again!");
-        console.error(err);
+      })
+      .catch(error => {
+        alert("Error! Check your Apps Script deployment.");
+      });
     });
-});
-</script>
+  </script>
 
 </body>
 </html>
