@@ -45,7 +45,7 @@ document.getElementById('join-form').addEventListener('submit', function(e){
     // ----------------------------
     // Replace with your Apps Script Web App URL
     // ----------------------------
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw2Ybv2S6K4ymGUv-z2VGXkoSZ3RC5TzM2i3KXr7mGjdk7fHxnAnb_44MCVSC-lY8TQ/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxlPmXLiWcf1xRkzTBhQGZzHGDgBGDGNH7KM3JXBWumzV4WpAzabSQxleYC5D3toqtt/exec";
 
     fetch(GOOGLE_SHEET_URL, { method: "POST", body: data })
     .then(response => response.text())
