@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You - MoneshSys Technologies</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        section {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #0a66c2;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .member-info {
+            margin-top: 20px;
+            text-align: left;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #0a66c2;
+            padding: 12px 25px;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background: #084e96;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>Thank You for Joining!</h2>
+        <p>Your membership payment has been received successfully.</p>
+
+        <div class="member-info">
+            <p><strong>Name:</strong> <span id="member-name"></span></p>
+            <p><strong>Email:</strong> <span id="member-email"></span></p>
+            <p><strong>Mobile:</strong> <span id="member-mobile"></span></p>
+        </div>
+
+        <a href="index.html">Back to Home</a>
+    </section>
+
+    <script>
+        // Load member info from localStorage
+        document.getElementById('member-name').innerText = localStorage.getItem('memberName') || 'N/A';
+        document.getElementById('member-email').innerText = localStorage.getItem('memberEmail') || 'N/A';
+        document.getElementById('member-mobile').innerText = localStorage.getItem('memberMobile') || 'N/A';
+    </script>
+</body>
+</html>
