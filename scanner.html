@@ -66,12 +66,14 @@
     <p>📷 Scan an ID QR Code</p>
   </div>
 
-  <div style="margin-top:20px;">
-  <label for="folderUpload">Upload Folder:</label>
-  <input type="file" id="folderUpload" webkitdirectory directory multiple>
+ <div style="margin-top:20px;">
+  <label>Upload Image:</label><br>
+  <input type="file" id="imageUpload" accept="image/*">
 </div>
 
-<ul id="fileList"></ul>
+<br>
+
+<img id="preview" width="300" style="display:none; border:2px solid #ccc;">
 
   <script>
     let scanned = false;
