@@ -1,122 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- Google tag (gtag.js) -->
+<head>
+
+<!-- Google tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18000099705"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18000099705');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18000099705');
 </script>
-   <link rel="icon" href="logo.png" type="image/png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MoneshSys ID Scanner</title>
 
-  <!-- QR Library -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
+<link rel="icon" href="logo.png" type="image/png">
 
-  <style>
-    body {
-      background: #0b0f1a;
-      color: #00e5ff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 10px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    h2 {
-      margin-top: 10px;
-    }
+<title>MoneshSys Technologies ID Scanner</title>
 
-    #reader {
-      width: 100%;
-      max-width: 320px;
-      margin: auto;
-    }
+<script src="https://unpkg.com/html5-qrcode"></script>
 
-    .card {
-      margin: 20px auto;
-      padding: 15px;
-      border: 1px solid #00e5ff;
-      border-radius: 12px;
-      background: #111827;
-      max-width: 360px;
-    }
+<style>
 
-    .error {
-      color: #ff4d4d;
-    }
+body{
+background:#0b0f1a;
+color:#00e5ff;
+font-family:Arial;
+text-align:center;
+margin:0;
+padding:10px;
+}
 
-    .success {
-      color: #00ff9c;
-    }
-  </style>
+h2{
+margin-top:10px;
+}
+
+#reader{
+width:100%;
+max-width:320px;
+margin:auto;
+}
+
+.card{
+margin:20px auto;
+padding:15px;
+border:1px solid #00e5ff;
+border-radius:12px;
+background:#111827;
+max-width:360px;
+}
+
+.error{
+color:#ff4d4d;
+}
+
+.success{
+color:#00ff9c;
+}
+
+input{
+margin-top:10px;
+padding:8px;
+border-radius:6px;
+border:none;
+}
+
+img{
+margin-top:10px;
+border-radius:10px;
+}
+
+</style>
 </head>
 
 <body>
 
-  <h2>🔐 MoneshSys ID Verification</h2>
+<h2>🔐 MoneshSys Technologies ID Verification</h2>
 
-  <div id="reader"></div>
+<div id="reader"></div>
 
-  <div class="card" id="result">
-    <p>📷 Scan an ID QR Code</p>
-  </div>
-
- <div style="margin-top:20px;">
-  <label>Upload Image:</label><br>
-  <input type="file" id="imageUpload" accept="image/*">
+<div class="card" id="result">
+<p>📷 Scan or Upload an ID QR Code</p>
 </div>
 
-<br>
+<div style="margin-top:20px;">
+<label>Upload QR Image</label><br>
+<input type="file" id="imageUpload" accept="image/*">
+</div>
 
 <img id="preview" width="300" style="display:none; border:2px solid #ccc;">
 
-  <script>
-    let scanned = false;
+<script>
 
-    function onScanSuccess(decodedText) {
-      if (scanned) return; // stop multiple scans
-      scanned = true;
+let scanned=false;
 
-      try {
-        const data = JSON.parse(decodedText);
+function onScanSuccess(decodedText){
 
-        if (data.company !== "MoneshSys Technologies") {
-          document.getElementById("result").innerHTML =
-            "<p class='error'>❌ Invalid Company ID</p>";
-          return;
-        }
+if(scanned) return;
+scanned=true;
 
-        document.getElementById("result").innerHTML = `
-          <h3 class="success">✅ Verified</h3>
-          <p><b>Name:</b> ${data.name}</p>
-          <p><b>Role:</b> ${data.role}</p>
-          <p><b>ID:</b> ${data.id}</p>
-          <p><b>Status:</b> ${data.status}</p>
-        `;
-      } catch (e) {
-        document.getElementById("result").innerHTML =
-          "<p class='error'>❌ Invalid QR Format</p>";
-      }
-    }
+try{
 
-    const scanner = new Html5QrcodeScanner(
-      "reader",
-      {
-        fps: 10,
-        qrbox: { width: 250, height: 250 },
-        rememberLastUsedCamera: true,
-        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-      },
-      false
-    );
+const data=JSON.parse(decodedText);
 
-    scanner.render(onScanSuccess);
-  </script>
+if(data.company!=="MoneshSys Technologies"){
+document.getElementById("result").innerHTML=
+"<p class='error'>❌ Invalid Company ID</p>";
+return;
+}
+
+document.getElementById("result").innerHTML=`
+<h3 class="success">✅ ID Verified</h3>
+<p><b>Name:</b> ${data.name}</p>
+<p><b>Role:</b> ${data.role}</p>
+<p><b>ID:</b> ${data.id}</p>
+<p><b>Status:</b> ${data.status}</p>
+`;
+
+}
+catch(e){
+
+document.getElementById("result").innerHTML=
+"<p class='error'>❌ Invalid QR Format</p>";
+
+}
+
+}
+
+const scanner=new Html5QrcodeScanner(
+"reader",
+{
+fps:10,
+qrbox:{width:250,height:250},
+rememberLastUsedCamera:true
+},
+false
+);
+
+scanner.render(onScanSuccess);
+
+
+document.getElementById("imageUpload").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+const preview=document.getElementById("preview");
+
+if(file){
+preview.src=URL.createObjectURL(file);
+preview.style.display="block";
+}
+
+const html5QrCode=new Html5Qrcode("reader");
+
+html5QrCode.scanFile(file,true)
+.then(decodedText=>{
+onScanSuccess(decodedText);
+})
+.catch(err=>{
+document.getElementById("result").innerHTML=
+"<p class='error'>❌ No QR Code found in image</p>";
+});
+
+});
+
+</script>
 
 </body>
 </html>
