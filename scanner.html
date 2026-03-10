@@ -31,10 +31,6 @@ margin:0;
 padding:10px;
 }
 
-h2{
-margin-top:10px;
-}
-
 #reader{
 width:100%;
 max-width:320px;
@@ -58,19 +54,8 @@ color:#ff4d4d;
 color:#00ff9c;
 }
 
-input{
-margin-top:10px;
-padding:8px;
-border-radius:6px;
-border:none;
-}
-
-img{
-margin-top:10px;
-border-radius:10px;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -97,6 +82,7 @@ let scanned=false;
 function onScanSuccess(decodedText){
 
 if(scanned) return;
+
 scanned=true;
 
 try{
@@ -118,6 +104,7 @@ document.getElementById("result").innerHTML=`
 `;
 
 }
+
 catch(e){
 
 document.getElementById("result").innerHTML=
@@ -141,6 +128,13 @@ scanner.render(onScanSuccess);
 
 
 document.getElementById("imageUpload").addEventListener("change",function(e){
+
+scanned=false;
+
+/* reset result automatically */
+
+document.getElementById("result").innerHTML=
+"<p>🔍 Scanning uploaded image...</p>";
 
 const file=e.target.files[0];
 const preview=document.getElementById("preview");
