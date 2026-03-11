@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Advertisement</title>
+
+<style>
+body{
+  text-align:center;
+  font-family:Arial;
+  background:black;
+  color:white;
+}
+
+video{
+  width:80%;
+  margin-top:40px;
+}
+
+#skipBtn{
+  display:none;
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:10px 20px;
+  background:red;
+  color:white;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Advertisement</h2>
+
+<video id="adVideo" autoplay muted>
+  <source src="advideo.mp4" type="video/mp4">
+</video>
+
+<button id="skipBtn" onclick="goSite()">Skip Ad</button>
+
+<script>
+
+// Show skip button after 5 seconds
+setTimeout(function(){
+  document.getElementById("skipBtn").style.display="block";
+},5000);
+
+// Go to main website
+function goSite(){
+  window.location.href="index.html";
+}
+
+// If video ends → go to website automatically
+document.getElementById("adVideo").onended = function(){
+  window.location.href="index.html";
+};
+
+</script>
+
+</body>
+</html>
