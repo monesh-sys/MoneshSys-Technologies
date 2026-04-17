@@ -2,23 +2,79 @@
 <html>
 <head>
   <title>Join Form</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2; /* light grey background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      width: 320px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #4a90e2;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #357bd8;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Join Application</h2>
+<div class="box">
+  <h2>Join Application</h2>
 
-<input type="text" id="name" placeholder="Enter Name"><br><br>
-<input type="email" id="email" placeholder="Enter Email"><br><br>
+  <input type="text" id="name" placeholder="Enter Name">
+  <input type="email" id="email" placeholder="Enter Email">
+  <input type="text" id="phone" placeholder="Enter Phone Number">
 
-<!-- 🔥 PHONE NUMBER ADDED -->
-<input type="text" id="phone" placeholder="Enter Phone Number"><br><br>
-
-<button onclick="sendEmail()">Submit</button>
+  <button onclick="sendEmail()">Submit</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-  emailjs.init("LANmw1j3MljFboz_x"); // 🔴 replace this
+  emailjs.init("LANmw1j3MljFboz_x");
 
   function sendEmail() {
     let name = document.getElementById("name").value;
@@ -33,12 +89,11 @@
     emailjs.send("service_o3mg6db", "template_1fsfsso", {
       to_name: name,
       to_email: email,
-      phone_number: phone   // 🔥 NEW FIELD SENT
+      phone_number: phone
     })
     .then(function(response) {
       console.log("SUCCESS!", response.status, response.text);
-
-      window.location.href = "join-success.html";
+      window.location.href = "success.html";
     })
     .catch(function(error) {
       console.log("FAILED...", error);
