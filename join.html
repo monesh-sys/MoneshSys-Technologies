@@ -1,103 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18000099705"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18000099705');
-</script>
-  <title>Join MoneshSys</title>
-    <link rel="icon" href="logo.png" type="image/png">
-  <!-- Makes website responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    .blue-btn {
-      background-color: #007bff;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .blue-btn:hover {
-      background-color: #0056b3;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-  </style>
+  <title>Join Form</title>
 </head>
-
 <body>
 
-  <div class="container">
-    <h2>Join Application</h2>
+<h2>Join Application</h2>
 
-    <form id="joinForm">
-      <input type="text" id="name" placeholder="Enter Your Name" required>
-      <input type="email" id="email" placeholder="Enter Your Email" required>
-      <input type="tel" id="phone" placeholder="Enter Your Phone Number" required>
+<input type="text" id="name" placeholder="Enter Name"><br><br>
+<input type="email" id="email" placeholder="Enter Email"><br><br>
 
-      <button type="submit" class="blue-btn">
-        Submit
-      </button>
-    </form>
-  </div>
+<!-- 🔥 PHONE NUMBER ADDED -->
+<input type="text" id="phone" placeholder="Enter Phone Number"><br><br>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<button onclick="sendEmail()">Submit</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-emailjs.init("LANmw1j3MljFboz_x");
+  emailjs.init("LANmw1j3MljFboz_x"); // 🔴 replace this
 
-function sendEmail() {
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
+  function sendEmail() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
 
-  emailjs.send("service_o3mg6db", "template_1fsfsso", {
-    to_name: name,
-    to_email: email
-  });
+    if (!name || !email || !phone) {
+      alert("Please fill all fields");
+      return;
+    }
 
-  alert("Email sent!");
-}
+    emailjs.send("service_o3mg6db", "template_1fsfsso", {
+      to_name: name,
+      to_email: email,
+      phone_number: phone   // 🔥 NEW FIELD SENT
+    })
+    .then(function(response) {
+      console.log("SUCCESS!", response.status, response.text);
+
+      window.location.href = "join-success.html";
+    })
+    .catch(function(error) {
+      console.log("FAILED...", error);
+      alert("Email failed! Check console (F12)");
+    });
+  }
 </script>
 
 </body>
