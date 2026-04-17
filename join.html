@@ -82,28 +82,23 @@
     </form>
   </div>
 
-  <script>
-    document.getElementById("joinForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-      fetch("https://script.google.com/macros/s/AKfycbwHeDttt2Asmo3MyEnfl076a12z0nhREo9XVJGVKwkNETPgU48w8GOcXUE7794J-VHY/exec", {
-        method: "POST",
-        body: new URLSearchParams({
-          name: document.getElementById("name").value,
-          email: document.getElementById("email").value,
-          phone: document.getElementById("phone").value,
-          payment: "Pending"
-        })
-      })
-      .then(response => response.text())
-      .then(data => {
-        window.location.href = "join-success.html";
-      })
-      .catch(error => {
-        alert("Error! Check your Apps Script deployment.");
-      });
-    });
-  </script>
+<script>
+emailjs.init("LANmw1j3MljFboz_x");
+
+function sendEmail() {
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+
+  emailjs.send("service_o3mg6db", "template_1fsfsso", {
+    to_name: name,
+    to_email: email
+  });
+
+  alert("Email sent!");
+}
+</script>
 
 </body>
 </html>
