@@ -70,51 +70,57 @@ footer{
 </div>
 
 <script>
-// 🔐 MEMBER DATABASE (YOU CONTROL THIS)
-const members = [
-  {
-    id: "MST-TES-001",
-    name: "Ashwin Raj",
-    role: "Tester",
-    status: "Approved"
-  },
-  {
-    id: "MST-LOG-001",
-    name: "Bevan Jude",
-    role: "Logo Designer",
-    status: "Approved"
-  },
-  {
-    id: "MST-TES-003",
-    name: "Vikram Patel",
-    role: "Tester",
-    status: "Approved"
-  }
-];
+async function verifyMember() {
 
-function verifyMember(){
-  const inputId = document.getElementById("memberId").value.toUpperCase();
+  const inputId = document
+    .getElementById("memberId")
+    .value
+    .toUpperCase();
+
   const output = document.getElementById("output");
 
-  const member = members.find(m => m.id === inputId);
+  output.innerHTML = "Checking member...";
 
-  if(member){
-    output.innerHTML = `
-      <div class="result valid">
-        <strong>✅ Member Verified</strong><br><br>
-        <b>Name:</b> ${member.name}<br>
-        <b>Role:</b> ${member.role}<br>
-        <b>Status:</b> ${member.status}<br>
-        <b>Company:</b> MoneshSys Technologies
-      </div>
-    `;
-  } else {
+  try {
+
+    const response = await fetch(
+      `YOUR_GOOGLE_SCRIPT_URL?id=${inputId}`
+    );
+
+    const data = await response.json();
+
+    if (data.found) {
+
+      output.innerHTML = `
+        <div class="result valid">
+          <strong>✅ Member Verified</strong><br><br>
+
+          <b>Name:</b> ${data.name}<br>
+          <b>Role:</b> ${data.role}<br>
+          <b>Status:</b> ${data.status}<br>
+          <b>Company:</b> MoneshSys Technologies
+        </div>
+      `;
+
+    } else {
+
+      output.innerHTML = `
+        <div class="result invalid">
+          ❌ Invalid Member ID<br>
+          Please check your ID or contact admin.
+        </div>
+      `;
+
+    }
+
+  } catch (error) {
+
     output.innerHTML = `
       <div class="result invalid">
-        ❌ Invalid Member ID<br>
-        Please check your ID or contact admin.
+        ❌ Server Error
       </div>
     `;
+
   }
 }
 </script>
