@@ -70,21 +70,24 @@ footer{
 </div>
 
 <script>
+
 async function verifyMember() {
 
-  const inputId = document
-    .getElementById("memberId")
-    .value
-    .toUpperCase();
+  const inputId =
+    document
+      .getElementById("memberId")
+      .value
+      .toUpperCase();
 
-  const output = document.getElementById("output");
+  const output =
+    document.getElementById("output");
 
   output.innerHTML = "Checking member...";
 
   try {
 
     const response = await fetch(
-      `https://script.google.com/macros/s/AKfycbxqGF4_KvY062BAYx28OJIGGh_6kdGaU-mimJvpkGK65P77zxlDWlGXXhNuaKgO0JKI/exec?id=${inputId}`
+      `YOUR_SCRIPT_URL?id=${inputId}`
     );
 
     const data = await response.json();
@@ -93,12 +96,17 @@ async function verifyMember() {
 
       output.innerHTML = `
         <div class="result valid">
+
           <strong>✅ Member Verified</strong><br><br>
 
           <b>Name:</b> ${data.name}<br>
+
           <b>Role:</b> ${data.role}<br>
+
           <b>Status:</b> ${data.status}<br>
+
           <b>Company:</b> MoneshSys Technologies
+
         </div>
       `;
 
@@ -106,23 +114,27 @@ async function verifyMember() {
 
       output.innerHTML = `
         <div class="result invalid">
+
           ❌ Invalid Member ID<br>
-          Please check your ID or contact admin.
+
+          Please check your ID.
+
         </div>
       `;
-
     }
 
-  } catch (error) {
+  } catch(error) {
 
     output.innerHTML = `
       <div class="result invalid">
+
         ❌ Server Error
+
       </div>
     `;
-
   }
 }
+
 </script>
 
   <footer>
