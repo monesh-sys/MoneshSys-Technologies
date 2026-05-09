@@ -87,7 +87,7 @@ async function verifyMember() {
   try {
 
     const response = await fetch(
-      `YOUR_SCRIPT_URL?id=${inputId}`
+      `https://script.google.com/macros/s/AKfycbx3-kYG525s80EM7zsRQB6AVpSN0D2SzMwgbmtRkSt7rvba8t_jKrkc8iUnZVIRIfBM/exec?id=${inputId}`
     );
 
     const data = await response.json();
