@@ -222,12 +222,13 @@ header{
 }
 
 header h1{
-  font-size:95px;
+  font-size:clamp(42px,10vw,95px);
   font-family:'Orbitron',sans-serif;
-  letter-spacing:8px;
+  letter-spacing:5px;
   z-index:2;
   text-shadow:0 0 30px #00c3ff;
   animation:glow 2s infinite alternate;
+  text-align:center;
 }
 
 @keyframes glow{
