@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18000099705"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18000099705');
+</script>
+
+<title>MoneshSys Technologies</title>
+
+<link rel="icon" href="logo.png">
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#050816;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ANIMATED BACKGROUND */
+
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:
+  radial-gradient(circle at top left,#00c3ff33,transparent 30%),
+  radial-gradient(circle at bottom right,#6a00ff33,transparent 30%);
+  z-index:-1;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:18px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+  z-index:2000;
+  transition:0.4s;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 25px rgba(0,195,255,0.3);
+}
+
+.menu-btn:hover{
+  transform:scale(1.1) rotate(5deg);
+  background:linear-gradient(135deg,#00c3ff,#0066ff);
+}
+
+/* TOP BUTTONS */
+
+.top-buttons{
+  position:fixed;
+  top:20px;
+  right:20px;
+  display:flex;
+  gap:15px;
+  z-index:2000;
+}
+
+.top-btn{
+  padding:13px 24px;
+  border-radius:18px;
+  text-decoration:none;
+  color:white;
+  font-weight:600;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.4s;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.top-btn:hover{
+  transform:translateY(-4px);
+  background:linear-gradient(135deg,#00c3ff,#0066ff);
+  box-shadow:0 0 25px rgba(0,195,255,0.5);
+}
+
+.join-btn{
+  background:linear-gradient(135deg,#00c3ff,#0066ff);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:-320px;
+  top:0;
+  width:300px;
+  height:100%;
+  background:rgba(15,23,42,0.96);
+  backdrop-filter:blur(25px);
+  transition:0.5s;
+  padding-top:90px;
+  z-index:1500;
+  border-right:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+.sidebar a{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:10px 18px;
+  padding:16px 22px;
+  border-radius:18px;
+  color:white;
+  text-decoration:none;
+  font-size:17px;
+  transition:0.4s;
+}
+
+.sidebar a:hover{
+  transform:translateX(10px);
+  background:linear-gradient(135deg,#00c3ff,#0066ff);
+  box-shadow:0 0 25px rgba(0,195,255,0.5);
+}
+
+/* CLOSE BUTTON */
+
+.close-btn{
+  position:absolute;
+  top:20px;
+  right:25px;
+  font-size:38px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.close-btn:hover{
+  color:#00c3ff;
+  transform:rotate(180deg);
+}
+
+/* HERO SECTION */
+
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* GLOW CIRCLE */
+
+.glow{
+  position:absolute;
+  width:400px;
+  height:400px;
+  background:#00c3ff55;
+  filter:blur(120px);
+  border-radius:50%;
+  animation:float 5s infinite alternate;
+}
+
+.glow2{
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#6a00ff55;
+  filter:blur(120px);
+  border-radius:50%;
+  right:0;
+  bottom:0;
+  animation:float2 6s infinite alternate;
+}
+
+@keyframes float{
+  from{transform:translate(-50px,-20px);}
+  to{transform:translate(50px,20px);}
+}
+
+@keyframes float2{
+  from{transform:translate(30px,20px);}
+  to{transform:translate(-40px,-20px);}
+}
+
+header h1{
+  font-size:95px;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:8px;
+  z-index:2;
+  text-shadow:0 0 30px #00c3ff;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{
+    text-shadow:0 0 20px #00c3ff;
+  }
+  to{
+    text-shadow:0 0 40px #00c3ff;
+  }
+}
+
+header p{
+  margin-top:20px;
+  font-size:24px;
+  color:#ddd;
+  z-index:2;
+}
+
+/* SECTION */
+
+section{
+  width:90%;
+  max-width:1100px;
+  margin:60px auto;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  padding:45px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.4s;
+}
+
+section:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 35px rgba(0,195,255,0.25);
+}
+
+h2{
+  color:#00c3ff;
+  margin-bottom:20px;
+  font-size:38px;
+}
+
+ul li{
+  margin:14px 0;
+  font-size:18px;
+}
+
+/* SOCIAL */
+
+.socials{
+  margin-top:25px;
+}
+
+.socials img{
+  width:60px;
+  margin-right:15px;
+  transition:0.4s;
+}
+
+.socials img:hover{
+  transform:scale(1.25) rotate(8deg);
+}
+
+ .phone-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:14px 25px;
+  background:linear-gradient(135deg,#00c3ff,#0066ff);
+  color:white;
+  text-decoration:none;
+  border-radius:15px;
+  font-size:18px;
+  font-weight:600;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(0,195,255,0.4);
+}
+
+.phone-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(0,195,255,0.7);
+}
+
+.email-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:14px 25px;
+  background:linear-gradient(135deg,#ff4b2b,#ff416c);
+  color:white;
+  text-decoration:none;
+  border-radius:15px;
+  font-size:18px;
+  font-weight:600;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(255,65,108,0.4);
+}
+
+.email-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(255,65,108,0.7);
+}
+
+/* FOOTER */
+
+footer{
+  padding:35px;
+  text-align:center;
+  background:#02040d;
+  color:#888;
+  margin-top:60px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  header h1{
+    font-size:50px;
+  }
+
+  header p{
+    font-size:18px;
+  }
+
+  .top-buttons{
+    right:10px;
+    gap:8px;
+  }
+
+  .top-btn{
+    padding:10px 14px;
+    font-size:12px;
+  }
+
+  .sidebar{
+    width:260px;
+  }
+
+ 
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- MENU BUTTON -->
+
+<button class="menu-btn" onclick="openMenu()">
+<i class="fas fa-bars"></i>
+</button>
+
+<!-- TOP BUTTONS -->
+
+<div class="top-buttons">
+
+<a href="#home" class="top-btn">
+<i class="fas fa-house"></i> Home
+</a>
+
+<a href="#contact" class="top-btn">
+<i class="fas fa-phone"></i> Contact
+</a>
+
+<a href="join.html" class="top-btn join-btn">
+<i class="fas fa-user-plus"></i> Join
+</a>
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<span class="close-btn" onclick="closeMenu()">&times;</span>
+
+<a href="#services">
+<i class="fas fa-code"></i> Services
+</a>
+
+<a href="#products">
+<i class="fas fa-box"></i> Products
+</a>
+
+<a href="team-rules.html">
+<i class="fas fa-users"></i> Team Rules
+</a>
+
+<a href="privacy-policy.html">
+<i class="fas fa-shield"></i> Privacy Policy
+</a>
+
+<a href="updates.html">
+<i class="fas fa-bell"></i> Updates
+</a>
+
+<a href="#founder">
+<i class="fas fa-user"></i> Founder
+</a>
+
+<a href="verify.html">
+<i class="fas fa-id-card"></i> Verify Member
+</a>
+
+<a href="project-request.html">
+<i class="fas fa-diagram-project"></i> Request Project
+</a>
+
+</div>
+
+<!-- HERO -->
+
+<header id="home">
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<h1>MONESHSYS</h1>
+
+<p>Technologies</p>
+
+<p>Smart • Secure • Future Ready</p>
+
+</header>
+
+<!-- ABOUT -->
+
+<section>
+
+<h2>About Us</h2>
+
+<p>
+MoneshSys Technologies is a modern student-driven technology initiative
+focused on building futuristic digital products, websites,
+automation systems and smart solutions.
+</p>
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<h2>Services</h2>
+
+<ul>
+<li>Website Development</li>
+<li>Android App Development</li>
+<li>Automation Systems</li>
+<li>SEO & Google Indexing</li>
+<li>Document Tools</li>
+</ul>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+<h2>Products</h2>
+
+<ul>
+<li>MiniForm</li>
+<li>Scan2PDF</li>
+<li>Verification System</li>
+<li>More Coming Soon...</li>
+</ul>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h2>Contact</h2>
+
+<a href="mailto:moneshsys@gmail.com" class="email-btn">
+  <i class="fas fa-envelope"></i> Send Email
+</a>
+
+<a href="tel:7338789676" class="phone-btn">
+  <i class="fas fa-phone"></i> Call Now
+</a>
+
+<div class="socials">
+
+<a href="https://instagram.com/moneshsys_technologies" target="_blank">
+<img src="insta.png">
+</a>
+
+<a href="mailto:moneshsys@gmail.com">
+<img src="mail.png">
+</a>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2025 MoneshSys Technologies
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function openMenu(){
+  document.getElementById("sidebar").style.left="0";
+}
+
+function closeMenu(){
+  document.getElementById("sidebar").style.left="-320px";
+}
+
+</script>
+
+</body>
+</html>
