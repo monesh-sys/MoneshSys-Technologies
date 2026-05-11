@@ -177,6 +177,35 @@
 <!-- HOME -->
 <header id="home">
   <h1>MONESHSYS</h1>
+  <script>
+
+let clickCount = 0;
+
+document.getElementById("secretLogo").addEventListener("click", function(){
+
+  clickCount++;
+
+  if(clickCount === 5){
+
+    let password = prompt("Enter Access Password");
+
+    if(password === "Monesh123"){
+
+      window.location.href = "testing-panel.html";
+
+    }else{
+
+      alert("Wrong Password");
+
+    }
+
+    clickCount = 0;
+
+  }
+
+});
+
+</script>
   <p>Technologies</p>
   <p>Smart • Simple • Secure Digital Solutions</p>
 </header>
