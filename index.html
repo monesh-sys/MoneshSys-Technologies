@@ -359,6 +359,17 @@ document.getElementById("secretLogo").addEventListener("click", function(){
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
+  <script>
+function toggleChat() {
+  const box = document.getElementById("chat-box");
+
+  if (box.style.display === "flex") {
+    box.style.display = "none";
+  } else {
+    box.style.display = "flex";
+  }
+}
+</script>
 
 </body>
 </html>
