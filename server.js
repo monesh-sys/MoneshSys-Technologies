@@ -17,7 +17,30 @@ app.post("/chat", async (req, res) => {
 
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
-    messages: [{ role: "user", content: userMessage }]
+    messages: [
+  {
+    role: "system",
+    content: `
+You are MoneshSys AI chatbot for the website moneshsys.com.
+
+Your job:
+- Explain about MoneshSys Technologies website
+- Answer questions about services, founder, products
+- Help users navigate the website
+- Be friendly and simple
+
+Website info:
+- Name: MoneshSys Technologies
+- Services: Web development, apps, Scan2PDF, MiniForm
+- Founder: Monesh K.K
+- Purpose: Student tech learning platform
+`
+  },
+  {
+    role: "user",
+    content: userMessage
+  }
+]
   });
 
   res.json({
