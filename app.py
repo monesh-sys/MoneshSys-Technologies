@@ -12,18 +12,51 @@ client = OpenAI(
 pdf_path = "./res/moneshsys.pdf"
 pages = read_pdf(pdf_path)
 
-# Convert pages into one big text
+# Convert PDF pages into text
 pdf_text = " ".join(pages)
 
-# Website Title
-st.title("Monesh AI Chatbot")
+# Page settings
+st.set_page_config(page_title="Monesh AI", layout="wide")
+
+# Custom CSS for floating chatbot
+st.markdown("""
+<style>
+
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+}
+
+.title {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# Floating Chatbot
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+st.markdown(
+    '<div class="title">Monesh AI Chatbot</div>',
+    unsafe_allow_html=True
+)
 
 # User Input
 user_input = st.text_input("Ask me anything")
 
+# AI Response from PDF
 if user_input:
 
-    # Send PDF content + question to AI
     prompt = f"""
     Answer only using this PDF information:
 
@@ -42,4 +75,6 @@ if user_input:
 
     answer = response.choices[0].message.content
 
-    st.write("AI:", answer)
+    st.write(answer)
+
+st.markdown("</div>", unsafe_allow_html=True)
