@@ -126,7 +126,7 @@ if "messages" not in st.session_state:
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
 st.markdown(
-    '<div class="title">🤖 Monesh AI</div>',
+    '<div class="title">🤖 MST Chatbot</div>',
     unsafe_allow_html=True
 )
 
