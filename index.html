@@ -359,36 +359,6 @@ document.getElementById("secretLogo").addEventListener("click", function(){
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
-  <script>
-   import express from "express";
-import bodyParser from "body-parser";
-import OpenAI from "openai";
 
-const app = express();
-app.use(bodyParser.json());
-
-const client = new OpenAI({
-  apiKey: process.env.AIzaSyB4HMPgmg2CI-vMk4rlVGVhUqDqhjyrHzs
-});
-
-// CHAT API ROUTE (THIS IS YOUR CODE)
-app.post("/chat", async (req, res) => {
-  const userMessage = req.body.message;
-
-  const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [{ role: "user", content: userMessage }]
-  });
-
-  res.json({
-    reply: response.choices[0].message.content
-  });
-});
-
-// START SERVER
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-  </script>
 </body>
 </html>
