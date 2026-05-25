@@ -282,6 +282,19 @@ document.getElementById("secretLogo").addEventListener("click", function(){
   <a href="scanner.html">Scan ID</a>
 
 </footer>
+<!-- CHATBOT BUTTON -->
+<div id="chat-bubble" onclick="toggleChat()">💬</div>
 
+<!-- CHAT WINDOW -->
+<div id="chat-box">
+  <div id="chat-header">MoneshSys AI</div>
+
+  <div id="chat-messages"></div>
+
+  <div id="chat-input-area">
+    <input id="chat-input" placeholder="Ask something..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 </body>
 </html>
