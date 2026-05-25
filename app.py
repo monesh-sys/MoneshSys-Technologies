@@ -44,7 +44,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Floating Chatbot
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
 st.markdown(
     '<div class="title">Monesh AI Chatbot</div>',
@@ -77,4 +77,4 @@ if user_input:
 
     st.write(answer)
 
-st.markdown("</div>", unsafe_allow_html=True)add in this code
+st.markdown("</div>", unsafe_allow_html=True)
