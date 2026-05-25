@@ -4,7 +4,7 @@ from pdfreader import read_pdf
 
 # OpenRouter API
 client = OpenAI(
-    api_key=st.secrets["OPENROUTER_API_KEY"],
+    api_key="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",
     base_url="https://openrouter.ai/api/v1"
 )
 
@@ -67,7 +67,7 @@ if user_input:
     """
 
     response = client.chat.completions.create(
-        model="mistralai/mistral-7b-instruct:free",
+        model="openai/gpt-oss-20b:free",
         messages=[
             {"role": "user", "content": prompt}
         ]
