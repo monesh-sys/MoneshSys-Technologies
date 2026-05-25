@@ -359,5 +359,35 @@ document.getElementById("secretLogo").addEventListener("click", function(){
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
+    <script>
+function toggleChat() {
+  const box = document.getElementById("chat-box");
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+}
+
+async function sendMessage() {
+  const input = document.getElementById("chat-input");
+  const message = input.value;
+  if (!message) return;
+
+  const chat = document.getElementById("chat-messages");
+
+  chat.innerHTML += `<div><b>You:</b> ${message}</div>`;
+
+  input.value = "";
+
+  // send to backend
+  const res = await fetch("http://localhost:3000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
+
+  const data = await res.json();
+
+  chat.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
 </body>
 </html>
