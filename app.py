@@ -4,7 +4,7 @@ from pdfreader import read_pdf
 
 # OpenRouter API
 client = OpenAI(
-    api_key=st.secrets["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"],
+    api_key=st.secrets["OPENROUTER_API_KEY"],
     base_url="https://openrouter.ai/api/v1"
 )
 
