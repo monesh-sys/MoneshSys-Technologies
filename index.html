@@ -360,15 +360,40 @@ document.getElementById("secretLogo").addEventListener("click", function(){
   </div>
 </div>
   <script>
-function toggleChat() {
-  const box = document.getElementById("chat-box");
+async function sendMessage() {
+  const input = document.getElementById("chat-input");
+  const message = input.value.trim();
 
-  if (box.style.display === "flex") {
-    box.style.display = "none";
-  } else {
-    box.style.display = "flex";
+  if (!message) return; // stop empty messages
+
+  const chat = document.getElementById("chat-messages");
+
+  chat.innerHTML += `<div><b>You:</b> ${message}</div>`;
+  input.value = "";
+
+  try {
+    const res = await fetch("http://localhost:3000/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+
+    chat.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+
+  } catch (error) {
+    chat.innerHTML += `<div style="color:red;">Bot error: server not running</div>`;
   }
 }
+
+/* ✅ ENTER KEY SUPPORT */
+document.getElementById("chat-input").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
 </script>
 
 </body>
