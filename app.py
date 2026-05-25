@@ -25,7 +25,7 @@ except:
 # PAGE SETTINGS
 # -----------------------------
 st.set_page_config(
-    page_title="Monesh AI",
+    page_title="MST Chatbot",
     page_icon="🤖",
     layout="wide"
 )
@@ -141,7 +141,7 @@ for msg in st.session_state.messages:
 
     else:
         st.markdown(
-            f'<div class="bot-msg"><b>Monesh AI:</b> {msg["content"]}</div>',
+            f'<div class="bot-msg"><b>MST Chatbot:</b> {msg["content"]}</div>',
             unsafe_allow_html=True
         )
 
