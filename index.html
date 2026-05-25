@@ -359,35 +359,36 @@ document.getElementById("secretLogo").addEventListener("click", function(){
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
-    <script>
-function toggleChat() {
-  const box = document.getElementById("chat-box");
-  box.style.display = box.style.display === "flex" ? "none" : "flex";
-}
+  <script>
+   import express from "express";
+import bodyParser from "body-parser";
+import OpenAI from "openai";
 
-async function sendMessage() {
-  const input = document.getElementById("chat-input");
-  const message = input.value;
-  if (!message) return;
+const app = express();
+app.use(bodyParser.json());
 
-  const chat = document.getElementById("chat-messages");
+const client = new OpenAI({
+  apiKey: process.env.AIzaSyB4HMPgmg2CI-vMk4rlVGVhUqDqhjyrHzs
+});
 
-  chat.innerHTML += `<div><b>You:</b> ${message}</div>`;
+// CHAT API ROUTE (THIS IS YOUR CODE)
+app.post("/chat", async (req, res) => {
+  const userMessage = req.body.message;
 
-  input.value = "";
-
-  // send to backend
-  const res = await fetch("http://localhost:3000/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message })
+  const response = await client.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [{ role: "user", content: userMessage }]
   });
 
-  const data = await res.json();
+  res.json({
+    reply: response.choices[0].message.content
+  });
+});
 
-  chat.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
-  chat.scrollTop = chat.scrollHeight;
-}
-</script>
+// START SERVER
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+  </script>
 </body>
 </html>
