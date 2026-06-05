@@ -269,18 +269,18 @@ document.getElementById("secretLogo").addEventListener("click", function(){
     <img src="mail.png" class="insta-icon">
   </a>
 </section >
-  <button onclick="openChat()">💬 Chat</button>
-
-<script>
-function openChat() {
-    window.open(
-        "chatbot.html",
-        "ChatBot",
-        "width=400,height=600"
-    );
-}
-</script>
-
+ <iframe
+    src="chatbot.html"
+    width="350"
+    height="500"
+    style="
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        border:none;
+        border-radius:15px;
+    ">
+</iframe>
 <!-- FOOTER -->
 <footer>
   © 2025 MoneshSys Technologies |
