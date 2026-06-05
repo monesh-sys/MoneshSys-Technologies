@@ -546,6 +546,33 @@ function closeMenu(){
 }
 
 </script>
+  <script>
+
+function openMenu(){
+  document.getElementById("sidebar").style.left = "0";
+}
+
+function closeMenu(){
+  document.getElementById("sidebar").style.left = "-320px";
+}
+
+// Close sidebar when clicking outside
+document.addEventListener("click", function(event) {
+
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.querySelector(".menu-btn");
+
+  if (
+    sidebar.style.left === "0px" &&
+    !sidebar.contains(event.target) &&
+    !menuBtn.contains(event.target)
+  ) {
+    closeMenu();
+  }
+
+});
+
+</script>
 
 </body>
 </html>
