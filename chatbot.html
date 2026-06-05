@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MST ChatBot AI</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#0f172a,#1e293b,#312e81,#0f172a);
+    background-size:400% 400%;
+    animation:bg 15s ease infinite;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.chat-container{
+    width:430px;
+    height:700px;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    display:flex;
+    flex-direction:column;
+}
+
+.header{
+    padding:20px;
+    text-align:center;
+    background:rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+    font-size:28px;
+    color:white;
+    font-weight:700;
+}
+
+.status{
+    color:#00ff88;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.messages{
+    flex:1;
+    padding:20px;
+    overflow-y:auto;
+}
+
+.message{
+    max-width:80%;
+    padding:12px 16px;
+    margin-bottom:15px;
+    border-radius:18px;
+    animation:show .3s ease;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.user{
+    background:#2563eb;
+    color:white;
+    margin-left:auto;
+}
+
+.bot{
+    background:rgba(255,255,255,0.15);
+    color:white;
+}
+
+.input-area{
+    display:flex;
+    padding:15px;
+    gap:10px;
+    background:rgba(255,255,255,0.05);
+}
+
+input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:14px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.1);
+    color:white;
+    font-size:15px;
+}
+
+input::placeholder{
+    color:#ccc;
+}
+
+button{
+    width:55px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.messages::-webkit-scrollbar{
+    width:5px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+    background:#555;
+    border-radius:10px;
+}
+a{
+    color:#00ff88;   /* link color */
+    text-decoration:none;
+    font-weight:600;
+}
+
+a:hover{
+    color:#ffcc00;   /* hover color */
+    text-decoration:underline;
+}
+.suggestions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:10px;
+}
+
+.suggestions button{
+    width:auto;
+    padding:8px 12px;
+    border:none;
+    border-radius:20px;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.suggestions button:hover{
+    background:#2563eb;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+    <div class="header">
+        <div class="logo">🤖 MST ChatBot AI</div>
+        <div class="status">● Online</div>
+    </div>
+
+    <div class="messages" id="messages">
+        <div class="message bot">
+            Hello! I am Monxa AI. How can I help you today?
+        </div>
+        <div class="suggestions">
+    <button onclick="askQuestion('who is the founder of MoneshSys Technologies')">Founder of MoneshSys Technologies</button>
+    <button onclick="askQuestion('who is the CEO of MST')">CEO of MoneshSys Technologies</button>
+    <button onclick="askQuestion('about MoneshSys Technologies')">About MoneshSys Technologies</button>
+    <button onclick="askQuestion('MoneshSys Technologies short form')">MST Short Form</button>  
+    <button onclick="askQuestion('How to join in MoneshSys Technologies?')">How to Join MoneshSys Technologies?</button>
+    <button onclick="askQuestion('how to request a project in MoneshSys Technologies?')">How to Request a Project in MoneshSys Technologies?</button>
+    <button onclick="askQuestion('any new updates in MoneshSys Technologies?')">Any New Updates in MoneshSys Technologies?</button>
+</div>
+    </div>
+
+    <div class="input-area">
+        <input id="input" placeholder="Ask anything...">
+        <button onclick="send()">➤</button>
+    </div>
+
+</div>
+
+<script>
+
+const messages = document.getElementById("messages");
+
+const knowledge = {
+    "hi": {
+        info: "Hello! I am MST ChatBot AI. How can I help you today?",
+        link: ""
+    },
+    "hello": {
+        info: "Hello! I am  AI. How can I help you today?", 
+        link: ""
+    },
+    "hey": {
+        info: "Hello! I am MST ChatBot AI. How can I help you today?", 
+        link: ""
+    },
+    "how are you": {
+        info: "I'm just a bunch of code, but I'm functioning perfectly! How can I assist you today?",
+        link: ""
+    },
+    "MoneshSys Technologies short form": {
+        info: "MST is the short form of MoneshSys Technologies.",
+        link: "https://moneshsys.com"
+    },
+    "who is the founder of MoneshSys Technologies": {
+        info: "The founder of MoneshSys Technologies is Mr. Monesh.K.K .",
+        link: "https://moneshsys.com"
+    },
+    "who is the CEO of MoneshSys Technologies": {
+        info: "The CEO of MoneshSys Technologies is Mr. Monesh.K.K .",
+        link: "https://moneshsys.com"
+    },
+    "who is the founder of MST": {
+        info: "The founder of MST is Mr. Monesh.K.K .",
+        link: "https://moneshsys.com"
+    },
+    "who is the CEO of MST": {
+        info: "The CEO of MST is Mr. Monesh.K.K .",
+        link: "https://moneshsys.com"
+    },
+    "about MoneshSys Technologies": {
+        info: "MoneshSys Technologies is a student-driven technology initiative focused on creating simple, reliable, and future-ready digital solutions. It states that it is currently operated as a learning and development project rather than for earning purposes.<br><strong>Overview:-</strong><br>Founded as a student-led technology platform<br>Focuses on web development, Android app development, automation tools, and SEO services<br>Aims to build practical digital products and utilities for users and businesses",
+        link: "https://moneshsys.com"
+    },
+    "about MST": {
+        info: "MST is a student-driven technology initiative focused on creating simple, reliable, and future-ready digital solutions. It states that it is currently operated as a learning and development project rather than for earning purposes.<br><strong>Overview:-</strong><br>Founded as a student-led technology platform<br>Focuses on web development, Android app development, automation tools, and SEO services<br>Aims to build practical digital products and utilities for users and businesses",
+        link: "https://moneshsys.com"
+    },
+    "How to join in MoneshSys Technologies?": {
+        info: "To join MoneshSys Technologies, you can visit their official website and look for the 'Join Application' or click learn more to go direct join application web page. They may have specific requirements or application processes for interested individuals.",
+        link: "https://moneshsys.com\\join"
+    },
+    "how to request a project in MoneshSys Technologies?": {
+        info: "To request a project in MoneshSys Technologies, you can visit their official website and look for the 'Request project' or click learn more to go direct request project web page. They may have specific requirements or application processes for interested individuals.",
+        link: "https://moneshsys.com\\project-request"
+    },
+    "any new updates in MoneshSys Technologies?": {
+        info: "For the latest updates on MoneshSys Technologies, you can visit their official website or follow their social media channels. They may post news about new projects, collaborations, or other developments related to their technology initiatives.",
+        link: "https://moneshsys.com"
+    }
+};
+
+function levenshtein(a, b) {
+    const matrix = [];
+
+    for(let i = 0; i <= b.length; i++){
+        matrix[i] = [i];
+    }
+
+    for(let j = 0; j <= a.length; j++){
+        matrix[0][j] = j;
+    }
+
+    for(let i = 1; i <= b.length; i++){
+        for(let j = 1; j <= a.length; j++){
+            if(b.charAt(i-1) === a.charAt(j-1)){
+                matrix[i][j] = matrix[i-1][j-1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i-1][j-1] + 1,
+                    matrix[i][j-1] + 1,
+                    matrix[i-1][j] + 1
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+function askQuestion(question){
+
+    document.getElementById("input").value = question;
+
+    send();
+}
+
+function getReply(text){
+
+    text = text.toLowerCase().trim();
+
+    // Exact match first (compare against lowercased keys)
+    for(let key in knowledge){
+        const keyLower = key.toLowerCase();
+        if(text.includes(keyLower)){
+            return `\n${knowledge[key].info}\n\n${knowledge[key].link}\n`;
+        }
+    }
+
+    // Find closest match using lowercased keys
+    let bestKey = null;
+    let bestScore = Infinity;
+
+    for(let key in knowledge){
+        const keyLower = key.toLowerCase();
+        let score = levenshtein(text, keyLower);
+        if(score < bestScore){
+            bestScore = score;
+            bestKey = key;
+        }
+    }
+
+    // Allow small spelling mistakes
+    if(bestScore <= 3){
+        return `\nDid you mean: <b>${bestKey}</b>?\n\n${knowledge[bestKey].info}\n\n${knowledge[bestKey].link}\n`;
+    }
+
+    return "Sorry, I don't know about that yet.";
+}
+
+function addMessage(text,type){
+
+    const msg = document.createElement("div");
+
+    msg.className = "message " + type;
+
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    msg.innerHTML = text.replace(
+        urlRegex,
+        '<br><a href="$1" target="_blank">📖 Learn More</a>'
+    );
+
+    messages.appendChild(msg);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function send(){
+
+    let input = document.getElementById("input");
+
+    if(input.value.trim()=="")
+        return;
+
+    addMessage(input.value,"user");
+
+    let text = input.value;
+
+    input.value="";
+
+    setTimeout(()=>{
+        addMessage(getReply(text),"bot");
+    },500);
+}
+
+document.getElementById("input")
+.addEventListener("keypress",function(e){
+
+    if(e.key==="Enter")
+        send();
+
+});
+
+</script>
+
+</body>
+</html>
