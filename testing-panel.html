@@ -379,8 +379,9 @@ footer{
 
 <!-- MENU BUTTON -->
 
-<button class="menu-btn" onclick="openMenu()">
-<i class="fas fa-bars"></i>
+<!-- MENU BUTTON -->
+<button class="menu-btn" onclick="toggleMenu()">
+  <i class="fas fa-bars"></i>
 </button>
 
 <!-- TOP BUTTONS -->
@@ -405,7 +406,7 @@ footer{
 
 <div class="sidebar" id="sidebar">
 
-<span class="close-btn" onclick="closeMenu()">&times;</span>
+<span class="close-btn" onclick="toggleMenu()">&times;</span>
 
 <a href="#services">
 <i class="fas fa-code"></i> Services
@@ -537,23 +538,14 @@ automation systems and smart solutions.
 
 <script>
 
-function openMenu(){
-  document.getElementById("sidebar").style.left="0";
-}
+function toggleMenu() {
+  const sidebar = document.getElementById("sidebar");
 
-function closeMenu(){
-  document.getElementById("sidebar").style.left="-320px";
-}
-
-</script>
-  <script>
-
-function openMenu(){
-  document.getElementById("sidebar").style.left = "0";
-}
-
-function closeMenu(){
-  document.getElementById("sidebar").style.left = "-320px";
+  if (sidebar.style.left === "0px") {
+    sidebar.style.left = "-320px";
+  } else {
+    sidebar.style.left = "0px";
+  }
 }
 
 // Close sidebar when clicking outside
@@ -567,12 +559,11 @@ document.addEventListener("click", function(event) {
     !sidebar.contains(event.target) &&
     !menuBtn.contains(event.target)
   ) {
-    closeMenu();
+    sidebar.style.left = "-320px";
   }
 
 });
 
 </script>
-
 </body>
 </html>
