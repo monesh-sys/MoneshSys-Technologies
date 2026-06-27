@@ -81,33 +81,33 @@
   emailjs.init("LANmw1j3MljFboz_x");
 
   function sendEmail() {
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let phone = document.getElementById("phone").value;
 
-    if (!name || !email || !phone) {
-      alert("Please fill all fields");
-      return;
+  if (!name || !email || !phone) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  emailjs.send(
+    "service_o3mg6db",
+    "template_1fsfsso",
+    {
+      to_name: name,
+      to_email: email,
+      phone_number: phone
     }
-
-   emailjs.send(
-  "service_o3mg6db",
-  "template_1fsfsso",
-  {
-    to_name: name,
-    to_email: email,
-    phone_number: phone
-  }
-)
-.then(function(response) {
-  console.log("SUCCESS!", response.status, response.text);
-  window.location.href = "join-success.html";
-})
-.catch(function(error) {
-  console.log("FAILED...", error);
-  alert("Email failed! Check console (F12)");
-});
-  }
+  )
+  .then(function(response) {
+    alert("Email Sent Successfully!");
+    window.location.href = "join-success.html";
+  })
+  .catch(function(error) {
+    console.error(error);
+    alert("Email Failed");
+  });
+}
 </script>
 
 </body>
