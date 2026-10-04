@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,35 +7,1039 @@
     <title>Staff | MoneshSys Technologies</title>
 
     <meta name="description"
-          content="Meet the team behind MoneshSys Technologies. View staff members, roles, and departments.">
+          content="Meet the team behind MoneshSys Technologies. View staff members and their roles.">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* =====================================================
+           MONESHSYS TECHNOLOGIES
+           ONE-FILE STAFF DIRECTORY
+        ===================================================== */
+
+        :root {
+            --bg: #05080d;
+            --bg2: #09111a;
+            --card: #0d151f;
+            --card-hover: #111d29;
+
+            --cyan: #00cfff;
+            --cyan-light: #67e5ff;
+
+            --white: #ffffff;
+            --text: #d8e2ea;
+            --muted: #8797a6;
+
+            --border: rgba(0, 207, 255, 0.16);
+
+            --max-width: 1200px;
+        }
+
+
+        /* ================= RESET ================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: var(--white);
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(0, 207, 255, 0.09),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 50%,
+                    rgba(0, 207, 255, 0.05),
+                    transparent 25%
+                ),
+                var(--bg);
+
+            min-height: 100vh;
+
+            line-height: 1.6;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+
+        .container {
+            width: min(92%, var(--max-width));
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background:
+                rgba(5, 8, 13, 0.90);
+
+            backdrop-filter: blur(15px);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .nav {
+            min-height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        /* BRAND */
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+
+            line-height: 1;
+        }
+
+
+        .brand-main {
+            font-size: 1.3rem;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+
+        .brand-sub {
+            margin-top: 5px;
+
+            color: var(--cyan);
+
+            font-size: 0.58rem;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+        }
+
+
+        /* NAVIGATION */
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+
+            gap: 28px;
+        }
+
+
+        .nav-links a {
+            position: relative;
+
+            color: var(--muted);
+
+            font-size: 0.9rem;
+
+            transition: 0.25s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+
+        .nav-links a.active::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+
+            bottom: -9px;
+
+            height: 2px;
+
+            background: var(--cyan);
+
+            box-shadow:
+                0 0 10px var(--cyan);
+        }
+
+
+        /* MOBILE BUTTON */
+
+        .menu-btn {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: var(--cyan);
+
+            cursor: pointer;
+
+            font-size: 1.3rem;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            position: relative;
+
+            padding: 110px 0 100px;
+
+            overflow: hidden;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            right: -180px;
+            top: -180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0, 207, 255, 0.08);
+
+            filter: blur(30px);
+        }
+
+
+        .hero-content {
+            position: relative;
+
+            max-width: 800px;
+        }
+
+
+        .label {
+            display: inline-block;
+
+            color: var(--cyan);
+
+            font-size: 0.72rem;
+
+            font-weight: 700;
+
+            letter-spacing: 2.5px;
+        }
+
+
+        .hero h1 {
+            margin-top: 18px;
+
+            font-size:
+                clamp(3rem, 8vw, 6rem);
+
+            line-height: 0.95;
+
+            letter-spacing: -3px;
+        }
+
+
+        .hero h1 span {
+            color: var(--cyan);
+
+            text-shadow:
+                0 0 25px
+                rgba(0, 207, 255, 0.35);
+        }
+
+
+        .hero p {
+            max-width: 650px;
+
+            margin-top: 28px;
+
+            color: var(--muted);
+
+            font-size: 1.05rem;
+        }
+
+
+        /* =====================================================
+           STAFF SECTION
+        ===================================================== */
+
+        .staff-section {
+            padding: 90px 0;
+        }
+
+
+        .section-title {
+            text-align: center;
+
+            max-width: 700px;
+
+            margin:
+                0 auto 45px;
+        }
+
+
+        .section-title h2 {
+            margin-top: 10px;
+
+            font-size:
+                clamp(2rem, 5vw, 3rem);
+        }
+
+
+        .section-title p {
+            margin-top: 12px;
+
+            color: var(--muted);
+        }
+
+
+        /* =====================================================
+           SEARCH / FILTER
+        ===================================================== */
+
+        .controls {
+            display: grid;
+
+            grid-template-columns:
+                1fr 230px;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .search {
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            transition: 0.25s ease;
+        }
+
+
+        .search:focus-within {
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0, 207, 255, 0.08);
+        }
+
+
+        .search-icon {
+            margin-right: 10px;
+
+            color: var(--cyan);
+
+            font-size: 1.5rem;
+        }
+
+
+        .search input {
+            width: 100%;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: var(--white);
+
+            font-size: 0.95rem;
+        }
+
+
+        .search input::placeholder {
+            color: #647482;
+        }
+
+
+        #roleFilter {
+            height: 55px;
+
+            padding: 0 15px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            outline: none;
+
+            background: var(--card);
+
+            color: var(--text);
+
+            cursor: pointer;
+        }
+
+
+        #roleFilter:focus {
+            border-color: var(--cyan);
+        }
+
+
+        /* =====================================================
+           STAFF COUNT
+        ===================================================== */
+
+        .staff-info {
+            margin:
+                15px 0 25px;
+
+            color: var(--muted);
+
+            font-size: 0.85rem;
+        }
+
+
+        /* =====================================================
+           STAFF GRID
+        ===================================================== */
+
+        .staff-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* =====================================================
+           STAFF CARD
+        ===================================================== */
+
+        .staff-card {
+            position: relative;
+
+            padding: 28px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0, 207, 255, 0.04),
+                    transparent 50%
+                ),
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+
+            animation:
+                cardIn 0.45s ease both;
+        }
+
+
+        .staff-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: var(--cyan);
+
+            transform:
+                scaleX(0);
+
+            transform-origin:
+                left;
+
+            transition:
+                transform 0.3s ease;
+        }
+
+
+        .staff-card:hover {
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(0, 207, 255, 0.5);
+
+            background:
+                var(--card-hover);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.3);
+        }
+
+
+        .staff-card:hover::before {
+            transform:
+                scaleX(1);
+        }
+
+
+        /* AVATAR */
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 22px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(0, 207, 255, 0.35);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0, 207, 255, 0.18),
+                    rgba(0, 207, 255, 0.03)
+                );
+
+            color: var(--cyan);
+
+            font-size: 1.25rem;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+
+        .staff-name {
+            font-size: 1.25rem;
+
+            font-weight: 800;
+        }
+
+
+        .staff-role {
+            margin-top: 5px;
+
+            color: var(--cyan);
+
+            font-size: 0.87rem;
+
+            font-weight: 600;
+        }
+
+
+        .staff-department {
+            margin-top: 15px;
+
+            color: var(--muted);
+
+            font-size: 0.82rem;
+        }
+
+
+        .staff-id {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 5px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 6px;
+
+            background:
+                rgba(0, 207, 255, 0.06);
+
+            color: #8edff0;
+
+            font-family: monospace;
+
+            font-size: 0.72rem;
+        }
+
+
+        /* =====================================================
+           NO RESULTS
+        ===================================================== */
+
+        .no-results {
+            display: none;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+        }
+
+
+        .no-results.show {
+            display: block;
+        }
+
+
+        .no-results-icon {
+            color: var(--cyan);
+
+            font-size: 3rem;
+
+            margin-bottom: 10px;
+        }
+
+
+        .no-results h3 {
+            color: var(--white);
+
+            margin-bottom: 5px;
+        }
+
+
+        /* =====================================================
+           JOIN SECTION
+        ===================================================== */
+
+        .join-section {
+            padding:
+                0 0 90px;
+        }
+
+
+        .join-card {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            padding: 45px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(0, 207, 255, 0.08),
+                    transparent
+                );
+        }
+
+
+        .join-card h2 {
+            margin-top: 10px;
+
+            font-size: 1.8rem;
+        }
+
+
+        .join-card p {
+            max-width: 650px;
+
+            margin-top: 8px;
+
+            color: var(--muted);
+        }
+
+
+        .join-btn {
+            flex-shrink: 0;
+
+            padding: 13px 22px;
+
+            border-radius: 9px;
+
+            background: var(--cyan);
+
+            color: #00131a;
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+
+        .join-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 207, 255, 0.25);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            border-top:
+                1px solid var(--border);
+
+            background: #030609;
+        }
+
+
+        .footer-main {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 30px;
+
+            padding: 45px 0;
+        }
+
+
+        .footer-brand {
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+
+        .footer-tagline {
+            margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 0.85rem;
+        }
+
+
+        .footer-links {
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+        }
+
+
+        .footer-links a {
+            color: var(--muted);
+
+            font-size: 0.85rem;
+
+            transition: 0.2s ease;
+        }
+
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+
+        .footer-bottom {
+            padding: 20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.05);
+
+            text-align: center;
+
+            color: #596774;
+
+            font-size: 0.75rem;
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes cardIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .staff-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .nav {
+                min-height: 68px;
+            }
+
+
+            .menu-btn {
+                display: block;
+            }
+
+
+            .nav-links {
+                display: none;
+
+                position: absolute;
+
+                top: 68px;
+
+                left: 0;
+                right: 0;
+
+                padding: 15px 20px;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 0;
+
+                background:
+                    rgba(5, 8, 13, 0.98);
+
+                border-bottom:
+                    1px solid var(--border);
+            }
+
+
+            .nav-links.open {
+                display: flex;
+            }
+
+
+            .nav-links a {
+                padding: 14px 5px;
+
+                border-bottom:
+                    1px solid
+                    rgba(255,255,255,0.04);
+            }
+
+
+            .nav-links a.active::after {
+                display: none;
+            }
+
+
+            .hero {
+                padding:
+                    75px 0 70px;
+            }
+
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+
+            .staff-section {
+                padding:
+                    65px 0;
+            }
+
+
+            .controls {
+                grid-template-columns: 1fr;
+            }
+
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .join-card {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                padding: 30px;
+            }
+
+
+            .footer-main {
+                flex-direction: column;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            .staff-card {
+                padding: 22px;
+            }
+
+
+            .hero h1 {
+                font-size: 2.7rem;
+            }
+
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-    <!-- ================= HEADER ================= -->
 
-    <header class="site-header">
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
-        <div class="container nav-container">
+    <header>
+
+        <div class="container nav">
 
             <a href="index.html" class="brand">
-                <span class="brand-main">MONESHSYS</span>
-                <span class="brand-sub">TECHNOLOGIES</span>
+
+                <span class="brand-main">
+                    MONESHSYS
+                </span>
+
+                <span class="brand-sub">
+                    TECHNOLOGIES
+                </span>
+
             </a>
 
-            <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open navigation"
+            >
                 ☰
             </button>
 
-            <nav class="navigation" id="navigation">
 
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="products.html">Products</a>
-                <a href="staff.html" class="active">Staff</a>
-                <a href="contact.html">Contact</a>
+            <nav class="nav-links" id="navLinks">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="services.html">
+                    Services
+                </a>
+
+                <a href="products.html">
+                    Products
+                </a>
+
+                <a href="staff.html" class="active">
+                    Staff
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
 
             </nav>
 
@@ -45,152 +1048,192 @@
     </header>
 
 
-    <!-- ================= HERO ================= -->
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
 
-    <main>
+    <section class="hero">
 
-        <section class="staff-hero">
+        <div class="container hero-content">
 
-            <div class="container hero-content">
+            <span class="label">
+                MONESHSYS TECHNOLOGIES
+            </span>
 
-                <span class="hero-label">MONESHSYS TECHNOLOGIES</span>
 
-                <h1>Our <span>Team</span></h1>
+            <h1>
+                Our <span>Team</span>
+            </h1>
+
+
+            <p>
+                Meet the people contributing to the projects,
+                products, and digital solutions of MoneshSys Technologies.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STAFF DIRECTORY
+    ===================================================== -->
+
+    <section class="staff-section">
+
+        <div class="container">
+
+
+            <div class="section-title">
+
+                <span class="label">
+                    STAFF DIRECTORY
+                </span>
+
+
+                <h2>
+                    Meet Our Staff
+                </h2>
+
 
                 <p>
-                    Meet the people contributing to the projects,
-                    products, and digital solutions of MoneshSys Technologies.
+                    Explore our team members and their
+                    responsibilities within MoneshSys Technologies.
                 </p>
 
             </div>
 
-        </section>
+
+            <!-- SEARCH + FILTER -->
+
+            <div class="controls">
+
+                <div class="search">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search staff by name or role..."
+                        autocomplete="off"
+                    >
+
+                </div>
 
 
-        <!-- ================= STAFF DIRECTORY ================= -->
+                <select id="roleFilter">
 
-        <section class="staff-section">
+                    <option value="all">
+                        All Roles
+                    </option>
 
-            <div class="container">
+                </select>
 
-                <div class="section-heading">
+            </div>
 
-                    <span class="section-label">STAFF DIRECTORY</span>
 
-                    <h2>Meet Our Staff</h2>
+            <!-- STAFF COUNT -->
+
+            <div class="staff-info">
+
+                <span id="staffCount">
+                    0 staff members
+                </span>
+
+            </div>
+
+
+            <!-- STAFF GRID -->
+
+            <div
+                class="staff-grid"
+                id="staffGrid"
+            >
+            </div>
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                class="no-results"
+                id="noResults"
+            >
+
+                <div class="no-results-icon">
+                    ⌕
+                </div>
+
+                <h3>
+                    No Staff Found
+                </h3>
+
+                <p>
+                    Try searching with a different name or role.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         JOIN
+    ===================================================== -->
+
+    <section class="join-section">
+
+        <div class="container">
+
+            <div class="join-card">
+
+                <div>
+
+                    <span class="label">
+                        JOIN MONESHSYS
+                    </span>
+
+
+                    <h2>
+                        Want to be part of our team?
+                    </h2>
+
 
                     <p>
-                        Explore our team members and their responsibilities
-                        within MoneshSys Technologies.
+                        If you are interested in contributing to
+                        MoneshSys Technologies, you can submit your
+                        application through our joining process.
                     </p>
 
                 </div>
 
 
-                <!-- SEARCH + FILTER -->
-
-                <div class="staff-controls">
-
-                    <div class="search-box">
-
-                        <span>⌕</span>
-
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Search staff by name or role..."
-                            autocomplete="off"
-                        >
-
-                    </div>
-
-
-                    <select id="roleFilter">
-
-                        <option value="all">All Roles</option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- STAFF COUNT -->
-
-                <div class="staff-info">
-
-                    <span id="staffCount">0 staff members</span>
-
-                </div>
-
-
-                <!-- STAFF CARDS -->
-
-                <div class="staff-grid" id="staffGrid">
-                    <!-- Staff cards generated by JavaScript -->
-                </div>
-
-
-                <!-- NO RESULTS -->
-
-                <div class="no-results" id="noResults">
-
-                    <div class="no-results-icon">⌕</div>
-
-                    <h3>No Staff Found</h3>
-
-                    <p>
-                        Try searching with a different name or role.
-                    </p>
-
-                </div>
+                <a
+                    href="join.html"
+                    class="join-btn"
+                >
+                    Join Our Team →
+                </a>
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- ================= JOIN SECTION ================= -->
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
 
-        <section class="join-section">
+    <footer>
 
-            <div class="container">
-
-                <div class="join-card">
-
-                    <div>
-
-                        <span class="section-label">
-                            JOIN MONESHSYS
-                        </span>
-
-                        <h2>Want to be part of our team?</h2>
-
-                        <p>
-                            If you are interested in contributing to
-                            MoneshSys Technologies, you can submit your
-                            application through our joining process.
-                        </p>
-
-                    </div>
-
-                    <a href="join.html" class="join-btn">
-                        Join Our Team →
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="site-footer">
-
-        <div class="container footer-content">
+        <div class="container footer-main">
 
             <div>
 
@@ -198,7 +1241,7 @@
                     MONESHSYS TECHNOLOGIES
                 </div>
 
-                <p>
+                <p class="footer-tagline">
                     Technology with Trust
                 </p>
 
@@ -207,10 +1250,21 @@
 
             <div class="footer-links">
 
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="staff.html">Staff</a>
-                <a href="contact.html">Contact</a>
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="services.html">
+                    Services
+                </a>
+
+                <a href="staff.html">
+                    Staff
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
 
             </div>
 
@@ -219,18 +1273,371 @@
 
         <div class="footer-bottom">
 
-            <p>
-                © <span id="currentYear"></span>
-                MoneshSys Technologies. All rights reserved.
-            </p>
+            © <span id="currentYear"></span>
+            MoneshSys Technologies. All rights reserved.
 
         </div>
 
     </footer>
 
 
-    <script src="script.js"></script>
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           STAFF DATABASE
+
+           ADD NEW STAFF MEMBERS HERE
+        ===================================================== */
+
+        const staffMembers = [
+
+            {
+                name: "Monesh K.K",
+                role: "Founder & Lead Developer",
+                department: "Management & Technology",
+                id: "MST-CEO-001"
+            },
+
+
+            {
+                name: "Bevan Jude",
+                role: "Manager – Logo Design",
+                department: "Design Department",
+                id: "MST-LOGO-001"
+            },
+
+
+            {
+                name: "Dharmesh R",
+                role: "Web Developer",
+                department: "Web Development",
+                id: "MST-WEB-001"
+            },
+
+
+            /*
+             * ADD MORE STAFF BELOW
+             *
+             * Example:
+             *
+             * {
+             *     name: "Arivan.S",
+             *     role: "Debugging Staff",
+             *     department: "Testing & Debugging",
+             *     id: "MST-DBG-001"
+             * }
+             */
+
+        ];
+
+
+        /* =====================================================
+           ELEMENTS
+        ===================================================== */
+
+        const staffGrid =
+            document.getElementById("staffGrid");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const roleFilter =
+            document.getElementById("roleFilter");
+
+        const staffCount =
+            document.getElementById("staffCount");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+        const currentYear =
+            document.getElementById("currentYear");
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                createRoleFilters();
+
+                renderStaff();
+
+                currentYear.textContent =
+                    new Date().getFullYear();
+
+            }
+        );
+
+
+        /* =====================================================
+           CREATE ROLE FILTER
+        ===================================================== */
+
+        function createRoleFilters() {
+
+            const roles = [
+                ...new Set(
+                    staffMembers.map(
+                        member => member.role
+                    )
+                )
+            ];
+
+
+            roles.forEach(role => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = role;
+
+                option.textContent = role;
+
+                roleFilter.appendChild(option);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           GET INITIALS
+        ===================================================== */
+
+        function getInitials(name) {
+
+            return name
+                .split(" ")
+                .filter(Boolean)
+                .map(
+                    word =>
+                        word.charAt(0)
+                )
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           RENDER STAFF
+        ===================================================== */
+
+        function renderStaff() {
+
+            const searchTerm =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const selectedRole =
+                roleFilter.value;
+
+
+            const filteredStaff =
+                staffMembers.filter(member => {
+
+                    const searchMatch =
+
+                        member.name
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        member.role
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        member.department
+                            .toLowerCase()
+                            .includes(searchTerm);
+
+
+                    const roleMatch =
+                        selectedRole === "all"
+                        ||
+                        member.role === selectedRole;
+
+
+                    return (
+                        searchMatch &&
+                        roleMatch
+                    );
+
+                });
+
+
+            staffGrid.innerHTML = "";
+
+
+            filteredStaff.forEach(
+                (member, index) => {
+
+                    const card =
+                        document.createElement("article");
+
+
+                    card.className =
+                        "staff-card";
+
+
+                    card.style.animationDelay =
+                        `${index * 0.05}s`;
+
+
+                    card.innerHTML = `
+
+                        <div class="avatar">
+                            ${getInitials(member.name)}
+                        </div>
+
+                        <h3 class="staff-name">
+                            ${escapeHTML(member.name)}
+                        </h3>
+
+                        <p class="staff-role">
+                            ${escapeHTML(member.role)}
+                        </p>
+
+                        <p class="staff-department">
+                            ${escapeHTML(member.department)}
+                        </p>
+
+                        <span class="staff-id">
+                            ${escapeHTML(member.id)}
+                        </span>
+
+                    `;
+
+
+                    staffGrid.appendChild(card);
+
+                }
+            );
+
+
+            /* UPDATE COUNT */
+
+            if (filteredStaff.length === 1) {
+
+                staffCount.textContent =
+                    "1 staff member";
+
+            } else {
+
+                staffCount.textContent =
+                    `${filteredStaff.length} staff members`;
+
+            }
+
+
+            /* SHOW / HIDE NO RESULTS */
+
+            if (filteredStaff.length === 0) {
+
+                noResults.classList.add("show");
+
+            } else {
+
+                noResults.classList.remove("show");
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        searchInput.addEventListener(
+            "input",
+            renderStaff
+        );
+
+
+        /* =====================================================
+           ROLE FILTER
+        ===================================================== */
+
+        roleFilter.addEventListener(
+            "change",
+            renderStaff
+        );
+
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        menuBtn.addEventListener(
+            "click",
+            function () {
+
+                navLinks.classList.toggle("open");
+
+            }
+        );
+
+
+        /* =====================================================
+           CLOSE MOBILE MENU
+        ===================================================== */
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navLinks.classList.remove(
+                            "open"
+                        );
+
+                    }
+                );
+
+            });
+
+    </script>
 
 </body>
 </html>
-```
+
