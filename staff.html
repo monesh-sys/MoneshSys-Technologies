@@ -1,364 +1,236 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Staff | MoneshSys Technologies</title>
 
     <meta name="description"
-          content="Meet the staff and team members of MoneshSys Technologies.">
+          content="Meet the team behind MoneshSys Technologies. View staff members, roles, and departments.">
 
-    <link rel="canonical" href="https://moneshsys.com/staff.html">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f9fc;
-            color: #111827;
-        }
-
-        header {
-            background: #071923;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand img {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        .brand h1 {
-            font-size: 20px;
-        }
-
-        .brand span {
-            display: block;
-            font-size: 12px;
-            color: #00cfff;
-            margin-top: 3px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 18px;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            color: #00cfff;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 70px 20px 45px;
-            background: linear-gradient(135deg, #071923, #0b3040);
-            color: white;
-        }
-
-        .hero h2 {
-            font-size: 42px;
-            margin-bottom: 12px;
-        }
-
-        .hero p {
-            color: #cbd5e1;
-            max-width: 650px;
-            margin: auto;
-            line-height: 1.7;
-        }
-
-        .staff-section {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        .staff-card {
-            background: white;
-            border-radius: 22px;
-            padding: 35px;
-            display: flex;
-            align-items: center;
-            gap: 35px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-            border: 1px solid #e5e7eb;
-        }
-
-        .staff-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #00cfff;
-            flex-shrink: 0;
-        }
-
-        .staff-info h3 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .role {
-            color: #00a8d6;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .staff-info p {
-            color: #4b5563;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .profile-button {
-            display: inline-block;
-            background: #00cfff;
-            color: #06151d;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .profile-button:hover {
-            background: #00a9d4;
-            transform: translateY(-2px);
-        }
-
-        /* Important verification link */
-        .official-profile {
-            max-width: 900px;
-            margin: 40px auto 70px;
-            padding: 30px;
-            text-align: center;
-            background: #eafaff;
-            border: 1px solid #b7efff;
-            border-radius: 18px;
-        }
-
-        .official-profile h3 {
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        .official-profile p {
-            color: #4b5563;
-            margin-bottom: 18px;
-            line-height: 1.6;
-        }
-
-        .official-profile a {
-            color: #007da0;
-            font-weight: bold;
-            text-decoration: none;
-            word-break: break-word;
-        }
-
-        .official-profile a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: #071923;
-            color: #cbd5e1;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        footer strong {
-            color: white;
-        }
-
-        @media (max-width: 700px) {
-
-            header {
-                justify-content: center;
-                text-align: center;
-            }
-
-            nav {
-                width: 100%;
-            }
-
-            nav a {
-                display: inline-block;
-                margin: 5px 8px;
-            }
-
-            .hero h2 {
-                font-size: 32px;
-            }
-
-            .staff-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 28px 20px;
-            }
-
-            .staff-image {
-                width: 150px;
-                height: 150px;
-            }
-
-            .staff-info h3 {
-                font-size: 26px;
-            }
-        }
-    </style>
-
-    <!-- Organization information -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "MoneshSys Technologies",
-        "url": "https://moneshsys.com/",
-        "employee": {
-            "@type": "Person",
-            "name": "Bevan Jude",
-            "jobTitle": "Manager – Logo Design",
-            "url": "https://staff.moneshsys.com/bevan-jude.html",
-            "worksFor": {
-                "@type": "Organization",
-                "name": "MoneshSys Technologies",
-                "url": "https://moneshsys.com/"
-            }
-        }
-    }
-    </script>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
+    <!-- ================= HEADER ================= -->
 
-    <div class="brand">
+    <header class="site-header">
 
-        <!-- Change logo.png if your logo has another filename -->
-        <img src="logo.png" alt="MoneshSys Technologies Logo">
+        <div class="container nav-container">
 
-        <div>
-            <h1>MoneshSys Technologies</h1>
-            <span>Technology with Trust</span>
-        </div>
-
-    </div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="products.html">Products</a>
-        <a href="staff.html">Staff</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-
-</header>
-
-
-<section class="hero">
-
-    <h2>Our Staff</h2>
-
-    <p>
-        Meet the people contributing their skills and creativity
-        to MoneshSys Technologies.
-    </p>
-
-</section>
-
-
-<main class="staff-section">
-
-    <div class="staff-card">
-
-        <!-- Put bevan.jpg in the same folder as staff.html -->
-        <img
-            src="bevan.jpg"
-            alt="Bevan Jude – Manager – Logo Design"
-            class="staff-image"
-        >
-
-        <div class="staff-info">
-
-            <h3>Bevan Jude</h3>
-
-            <div class="role">
-                Manager – Logo Design
-            </div>
-
-            <p>
-                Bevan Jude is the Manager – Logo Design at
-                MoneshSys Technologies, contributing to the
-                organization's visual identity and logo design work.
-            </p>
-
-            <a
-                class="profile-button"
-                href="https://staff.moneshsys.com/bevan-jude.html"
-            >
-                View Official Staff Profile →
+            <a href="index.html" class="brand">
+                <span class="brand-main">MONESHSYS</span>
+                <span class="brand-sub">TECHNOLOGIES</span>
             </a>
 
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+                ☰
+            </button>
+
+            <nav class="navigation" id="navigation">
+
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="products.html">Products</a>
+                <a href="staff.html" class="active">Staff</a>
+                <a href="contact.html">Contact</a>
+
+            </nav>
+
         </div>
 
-    </div>
+    </header>
 
 
-    <!-- IMPORTANT OFFICIAL PROFILE LINK -->
+    <!-- ================= HERO ================= -->
 
-    <div class="official-profile">
+    <main>
 
-        <h3>Official Staff Profile</h3>
+        <section class="staff-hero">
 
-        <p>
-            For the complete profile and official staff information,
-            visit Bevan Jude's profile on the MoneshSys Technologies
-            Staff Portal.
-        </p>
+            <div class="container hero-content">
 
-        <a href="https://staff.moneshsys.com/bevan-jude.html">
-            https://staff.moneshsys.com/bevan-jude.html
-        </a>
+                <span class="hero-label">MONESHSYS TECHNOLOGIES</span>
 
-    </div>
+                <h1>Our <span>Team</span></h1>
 
-</main>
+                <p>
+                    Meet the people contributing to the projects,
+                    products, and digital solutions of MoneshSys Technologies.
+                </p>
+
+            </div>
+
+        </section>
 
 
-<footer>
+        <!-- ================= STAFF DIRECTORY ================= -->
 
-    <p>
-        © 2026 <strong>MoneshSys Technologies</strong>.
-        Technology with Trust.
-    </p>
+        <section class="staff-section">
 
-</footer>
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">STAFF DIRECTORY</span>
+
+                    <h2>Meet Our Staff</h2>
+
+                    <p>
+                        Explore our team members and their responsibilities
+                        within MoneshSys Technologies.
+                    </p>
+
+                </div>
+
+
+                <!-- SEARCH + FILTER -->
+
+                <div class="staff-controls">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search staff by name or role..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select id="roleFilter">
+
+                        <option value="all">All Roles</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STAFF COUNT -->
+
+                <div class="staff-info">
+
+                    <span id="staffCount">0 staff members</span>
+
+                </div>
+
+
+                <!-- STAFF CARDS -->
+
+                <div class="staff-grid" id="staffGrid">
+                    <!-- Staff cards generated by JavaScript -->
+                </div>
+
+
+                <!-- NO RESULTS -->
+
+                <div class="no-results" id="noResults">
+
+                    <div class="no-results-icon">⌕</div>
+
+                    <h3>No Staff Found</h3>
+
+                    <p>
+                        Try searching with a different name or role.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= JOIN SECTION ================= -->
+
+        <section class="join-section">
+
+            <div class="container">
+
+                <div class="join-card">
+
+                    <div>
+
+                        <span class="section-label">
+                            JOIN MONESHSYS
+                        </span>
+
+                        <h2>Want to be part of our team?</h2>
+
+                        <p>
+                            If you are interested in contributing to
+                            MoneshSys Technologies, you can submit your
+                            application through our joining process.
+                        </p>
+
+                    </div>
+
+                    <a href="join.html" class="join-btn">
+                        Join Our Team →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <div class="footer-brand">
+                    MONESHSYS TECHNOLOGIES
+                </div>
+
+                <p>
+                    Technology with Trust
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="staff.html">Staff</a>
+                <a href="contact.html">Contact</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span>
+                MoneshSys Technologies. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
 
 </body>
 </html>
+```
